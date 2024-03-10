@@ -1,0 +1,95 @@
+aside{
+    max-width: 300px;
+    width: 100%;
+    border-right: 1px solid gainsboro;
+    height: 100vh;
+    /* padding: 50px 0; */
+}
+.top{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 15px 0 10px;
+    font-size: 21px;
+}
+.logo-container {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    height: 50px;
+    padding: 0 10px;
+    color: black;
+}
+.logo-icon {
+    margin-right: 15px;
+}
+.logo-text {
+}
+.btn-burger{
+    justify-self: end;
+    cursor: pointer;
+}
+.avatar-container-wrapper{
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 15px 0;
+    /* flex-direction: column; */
+    /* margin-bottom: 50px; */
+}
+.avatar-container{
+    max-width: 70px;
+    /* border: 2px solid firebrick; */
+    margin: 0 10px;
+}
+.avatar-container img{
+    border-radius: 50%;
+    border: 4px solid var(--accent-color-violet);
+}
+.name-container p{
+    /* text-align: center; */
+}
+.username{
+    font-size: 20px;
+    font-weight: 700;
+}
+.name{
+    font-weight: lighter;
+    font-size: 16px;
+}
+.menu-container ul{
+    padding: 0;
+    /* margin-top: 10px; */
+}
+.menu-item{
+    justify-content: center;
+    align-items: center;
+    height: 60px;
+    /* padding-left: 25px; */
+    color: #000000;
+}
+.menu-item p{
+    margin: 0;
+}
+.menu-item a{
+    display: flex;
+    width: 90%;
+    align-items: center;
+    height: 60px;
+    padding-left: 20px;
+    color: #000000;
+    font-size: 19px;
+}
+.menu-item a:hover{
+    background-color: var(--accent-color-green);
+    color: white; 
+    cursor: pointer;
+    border-radius: 15px;
+}
+.menu-icons{
+    max-width: 30px;
+    width: 100%;
+    margin-right: 20px;
+}
+

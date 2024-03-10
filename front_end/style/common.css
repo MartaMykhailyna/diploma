@@ -1,0 +1,56 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+body{
+}
+.landing{
+    display: flex;
+    font-family: Ubuntu, sans-serif;
+}
+img{
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+a{
+    text-decoration: none;
+    color: black;
+}
+a:hover{
+    color: dimgrey;
+}
+:root{
+    --accent-color-green: #43645A;
+    --accent-color-gray: #909090;
+    --accent-color-violet: #474554;
+    /* background-color: #909090;
+    background-color: #474554;
+    background-color: #43645A; */
+}
+li{
+    list-style: none;
+    display: flex;
+}
+.access-active{
+    background-color:  #75ab26;
+    color: white;
+    border-radius: 30px;
+    width: 70%;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+}
+.access-non-active{
+    background-color: lightgray;
+    border-radius: 30px;
+    margin: 0 auto;
+    width: 70%;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

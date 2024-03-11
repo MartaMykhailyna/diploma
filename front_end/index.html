@@ -12,13 +12,13 @@
 </head>
 <body>
     <div class="landing">
-        <aside>
+        <aside id="aside">
             <div class="top">
                 <div class="logo-container">
                     <div class="logo-icon"><i class="fa-solid fa-shoe-prints"></i></div>
                     <div class="logo-text">Boots</div>
                 </div>
-                <div class="btn-burger"><i class="fa-solid fa-bars"></i></div>
+                <div id="btn_burger" class="btn-burger"><i class="fa-solid fa-bars"></i></div>
             </div>
             <div class="avatar-container-wrapper">
               <div class="avatar-container">
@@ -85,6 +85,15 @@
               </nav>
             </div>
         </aside>
+        .
     </div>
+    <script>
+      const btn = document.getElementById('btn_burger');
+      const sidebar = document.getElementById('aside');
+      
+      btn.onclick = function() {
+        sidebar.classList.toggle('active');
+      };
+    </script>
 </body>
 </html>

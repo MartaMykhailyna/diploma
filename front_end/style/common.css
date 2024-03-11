@@ -3,8 +3,6 @@
     margin: 0;
     box-sizing: border-box;
 }
-body{
-}
 .landing{
     display: flex;
     font-family: Ubuntu, sans-serif;

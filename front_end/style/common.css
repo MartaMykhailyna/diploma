@@ -16,6 +16,17 @@ a{
     text-decoration: none;
     color: black;
 }
+button{
+    background-color: transparent;
+    margin: 0;
+    padding: 0;
+    border: none;
+}
+i{
+    margin: 0;
+    padding: 0;
+    /* border: none; */
+}
 a:hover{
     color: dimgrey;
 }
@@ -23,6 +34,7 @@ a:hover{
     --accent-color-green: #43645A;
     --accent-color-gray: #909090;
     --accent-color-violet: #474554;
+    --accent-font-color: #FAF7FF;
     /* background-color: #909090;
     background-color: #474554;
     background-color: #43645A; */

@@ -8,6 +8,7 @@ aside{
     background-color: var(--accent-color-violet);
     padding: 0;
     /* padding: 50px 0; */
+    color: var(--accent-font-color);
 }
 aside.active{
     width: 100%;
@@ -31,7 +32,7 @@ aside.active .logo-container {
     align-items: center;
     height: 50px;
     padding: 0 10px;
-    color: black;
+    /* color: black; */
 }
 .logo-icon {
     margin-right: 15px;
@@ -93,18 +94,22 @@ aside.active .name-container {
     font-weight: lighter;
     font-size: 16px;
 }
+.menu-container nav{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+}
 .menu-container ul{
     padding: 0;
     transition: all 0.5s ease-in-out;
-
     /* margin-top: 10px; */
 }
+
 .menu-item{
     align-items: center;
     justify-content: center;
     height: 60px;
     /* padding-left: 25px; */
-    color: #000000;
     transition: all .5s  ease-in-out;
 }
 .menu-item p{
@@ -114,13 +119,14 @@ aside.active .menu-item p{
     display: inline;
     margin: 0;
 }
-.menu-item a{
+.menu-item a, .menu-item button{
     display: flex;
     width: 90%;
     align-items: center;
     justify-content: center;
     height: 60px;
-    color: #000000;
+    color: var(--accent-font-color);
+    /* color: black; */
     font-size: 25px;
 }
 aside.active .menu-item{
@@ -128,24 +134,30 @@ aside.active .menu-item{
     font-size: 19px;
     justify-content: unset;
 }
-aside.active .menu-item a{
+aside.active .menu-item a, aside.active .menu-item button{
     justify-content: unset;
-    padding-left: 25px;
+    padding-left: 25px
 }
-.menu-item a:hover{
+aside.active .menu-item a p, aside.active .menu-item button p{
+    font-size: 20px;
+}
+.menu-item a:hover, .menu-item button:hover{
     background-color: var(--accent-color-green);
     color: white; 
     cursor: pointer;
     border-radius: 15px;
+    margin: 0 auto;  
+}
+.menu-item button {
+    margin: 0 auto;
+}
+aside.active .menu-item button {
+    margin: 0;
 }
 .menu-icons{
     max-width: 30px;
     /* width: 100%; */
     /* margin: 0 auto; */
-}
-.menu-icons:nth-child(2) .fa-solid{
-    margin: 0 auto;
-    color: red;
 }
 aside.active .menu-icons{
     max-width: 30px;

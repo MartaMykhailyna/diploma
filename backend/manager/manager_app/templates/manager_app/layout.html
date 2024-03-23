@@ -1,9 +1,10 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admins</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Головна (адмін)</title>
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>
@@ -11,7 +12,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="style/style.css">
+    <link rel="stylesheet" href="{% static 'style.css' %}">
 </head>
 <body>
     <div class="landing">
@@ -25,7 +26,7 @@
             </div>
             <div class="avatar-container-wrapper">
               <div class="avatar-container">
-                <img src="img/icon-admin.jpg" alt="avatar">
+                <img src="{% static 'img/icon-admin.jpg'%}" alt="avatar">
               </div>
               <div class="circle-online"></div>
               <div class="name-container">
@@ -36,7 +37,7 @@
               <nav>
                 <ul>
                   <li class="menu-item">
-                    <a href="index.html">
+                    <a href="{% url 'index' %}">
                       <div class="menu-icons">
                         <i class="fa-solid fa-house"></i>
                       </div>
@@ -44,7 +45,7 @@
                     </a>
                   </li>
                   <li class="menu-item">
-                    <a href="admins.html">
+                    <a href="{% url 'admins' %}">
                       <div class="menu-icons">
                         <i class="fa-solid fa-user-tie"></i>
                       </div>
@@ -52,7 +53,7 @@
                     </a>
                   </li>
                   <li class="menu-item">
-                    <a href="users.html">
+                    <a href="{% url 'users' %}">
                       <div class="menu-icons">
                         <i class="fa-solid fa-user-group"></i>
                       </div>
@@ -60,7 +61,7 @@
                     </a>
                   </li>
                   <li class="menu-item">
-                    <a href="items.html">
+                    <a href="{% url 'items' %}">
                       <div class="menu-icons">
                         <i class="fa-solid fa-user-group"></i>
                       </div>
@@ -68,7 +69,7 @@
                     </a>
                   </li>
                   <li class="menu-item">
-                    <a href="orders.html">
+                    <a href="{% url 'orders' %}">
                       <div class="menu-icons">
                         <i class="fa-solid fa-list"></i>
                       </div>
@@ -76,7 +77,7 @@
                     </a>
                   </li>
                   <li class="menu-item">
-                    <a href="analytics.html">
+                    <a href="{% url 'analytics' %}">
                       <div class="menu-icons">
                         <i class="fa-solid fa-chart-bar"></i>
                       </div>
@@ -106,21 +107,11 @@
             </div>
         </aside>
         <main>
-            <div class="table-container">
-                <script>
-                    import * as React from 'react';
-import Button from '@mui/material/Button';
-
-export default function ButtonUsage() {
-  return <Button variant="contained">Hello world</Button>;
-}
-                </script>
-            </div>
+            {% block content %}
+            {% endblock %}
         </main>
     </div>
-    <script src="js/template.js"></script>
-    <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
-    <script src="js/sidebar.js"></script>
-    <script src="js/tables.js"></script>
+    <script src="{% static 'js/sidebar.js' %}"></script>
+    <script src="{% static 'js/tables.js' %}"></script>
 </body>
 </html>

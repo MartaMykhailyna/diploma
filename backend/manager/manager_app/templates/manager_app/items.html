@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+{% block content %}
+  <div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <th>№</th>
+          <th>Фото</th>
+          <th>Назва</th>
+          <th>Модель</th>
+          <th>Розмір</th>
+          <th>Колір</th>
+          <th>Кількість</th>
+          <th>Виробник</th>
+          <th>Вартість</th>
+        </tr>
+      </thead>
+      <tbody>
+      {% for item in data %}
+          <tr>
+            <td>{{ item.id_shoes }}</td>
+            <td>{{ item.sh_image }}</td>
+            <td>{{ item.sh_name }}</td>
+            <td>{{ item.sh_model }}</td>
+            <td>{{ item.sh_size }}</td>
+            <td>{{ item.sh_color }}</td>
+            <td>{{ item.sh_count }}</td>
+            <td>{{ item.sh_manufacturer }}</td>
+            <td>{{ item.sh_price }}</td>
+          </tr>
+        </tbody>
+      {% endfor %}
+      </table>
+  </div>
+{% endblock %}

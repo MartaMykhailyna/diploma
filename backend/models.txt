@@ -50,21 +50,20 @@ class Admins(models.Model):
 class Reservations(models.Model):
     id_reservation = models.AutoField(primary_key=True)
     r_shoes = models.ForeignKey(Shoes, on_delete=models.CASCADE)
-    r_count = models.IntegerField()
+    r_user = models.ForeignKey(Users, on_delete=models.CASCADE)
     r_start_date = models.DateTimeField(auto_now_add=True)
     r_end_date = models.DateTimeField()
-    r_user = models.ForeignKey(Users, on_delete=models.CASCADE)
     
     class Meta:
         db_table = 'reservations'
 
-class Orders(models.Model):
+class Order(models.Model):
     id_order = models.AutoField(primary_key=True)
-    o_shoes = models.ForeignKey(Shoes, on_delete=models.CASCADE, db_column='o_shoes')
+    o_shoes = models.ForeignKey(Shoes, on_delete=models.CASCADE)
+    o_user = models.ForeignKey(Users, on_delete=models.CASCADE)
     o_count = models.IntegerField()
     o_sum = models.DecimalField(max_digits=10, decimal_places=2)
     o_status = models.CharField(max_length=45, choices=[(order_status.value, order_status.name) for order_status in Order_status])
-    o_user = models.ForeignKey(Users, on_delete=models.CASCADE, null = True, db_column='o_user')
     
     class Meta:
         db_table = 'orders'

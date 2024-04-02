@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="table-container">
+  <table>
+    <thead>
+        <tr>
+            <th>№</th>
+            <th>Назва</th>
+            <th>Колір</th>
+            <th>Модель</th>
+            <th>Розмір</th>
+            <th>Кількість</th>
+            <th>Сума</th>
+            <th>Статус</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for item in data %}
+        <tr>
+            <td>{{ item.id_order }}</td>
+            <td>{{ item.o_shoes.sh_name }}</td>
+            <td>{{ item.o_color.sh_color }}</td>
+            <td>{{ item.o_model }}</td>
+            <td>{{ item.o_size }}</td>
+            <td>{{ item.o_count }}</td>
+            <td>{{ item.o_sum }}</td>
+            <td>
+                {% if item.o_status == True %}
+                    <div class="access-active"><span>Active</span></div>
+                {% else %}
+                    <div class="access-non-active"><span>Non active</span></div>
+                {% endif %}
+            </td>
+            <td>{{ item.o_user.u_name }}</td>
+        </tbody>
+</table>
+    {% endfor %}
+</div>
+{% endblock %}

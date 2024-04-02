@@ -1,7 +1,5 @@
 {% extends "layout.html" %}
 {% block content %}
-  <div class="table-container">
-    <table>
         <thead>
             <tr>
                 <th>№</th>
@@ -14,24 +12,22 @@
             </tr>
         </thead>
         <tbody>
-  {% for item in data %}
+{% for item in data %}
             <tr>
-                <td>{{ item.id_admin }}</td>
-                <td>{{ item.a_username }}</td>
-                <td>{{ item.a_name }}</td>
-                <td>{{ item.a_surname }}</td>
-                <td>{{ item.a_email }}</td>
-                <td>{{ item.a_phone }}</td>
+                <td>{{ item.id_user }}</td>
+                <td>{{ item.u_username }}</td>
+                <td>{{ item.u_name }}</td>
+                <td>{{ item.u_surname }}</td>
+                <td>{{ item.u_email }}</td>
+                <td>{{ item.u_phone }}</td>
                 <td>
-                    {% if item.a_status == True %}
+                    {% if item.u_status == True %}
                         <div class="access-active"><span>Active</span></div>
                     {% else %}
                         <div class="access-non-active"><span>Non active</span></div>
                     {% endif %}
                 </td>
             </tr>
-      </tbody>
-      {% endfor %}
-    </table>
-  </div>
+        </tbody>
+    {% endfor %}
 {% endblock %}

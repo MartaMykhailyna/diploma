@@ -49,11 +49,11 @@ class Admins(models.Model):
 
 class Reservations(models.Model):
     id_reservation = models.AutoField(primary_key=True)
-    r_shoes = models.ForeignKey(Shoes, on_delete=models.CASCADE)
+    r_shoes = models.ForeignKey(Shoes, on_delete=models.CASCADE, db_column='r_shoes')
     r_count = models.IntegerField()
     r_start_date = models.DateTimeField(auto_now_add=True)
     r_end_date = models.DateTimeField()
-    r_user = models.ForeignKey(Users, on_delete=models.CASCADE)
+    r_user = models.ForeignKey(Users, on_delete=models.CASCADE, db_column='r_user')
     
     class Meta:
         db_table = 'reservations'

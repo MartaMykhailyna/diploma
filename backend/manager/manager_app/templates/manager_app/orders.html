@@ -1,10 +1,8 @@
 {% extends "layout.html" %}
 {% block content %}
-<div class="table-container">
-  <table>
     <thead>
         <tr>
-            <th>№</th>
+            <!-- <th>№</th> -->
             <th>Назва</th>
             <th>Колір</th>
             <th>Модель</th>
@@ -12,28 +10,36 @@
             <th>Кількість</th>
             <th>Сума</th>
             <th>Статус</th>
+            <th>Користувач</th>
         </tr>
     </thead>
     <tbody>
     {% for item in data %}
         <tr>
-            <td>{{ item.id_order }}</td>
+            <!-- <td>{{ item.id_order }}</td> -->
             <td>{{ item.o_shoes.sh_name }}</td>
-            <td>{{ item.o_color.sh_color }}</td>
-            <td>{{ item.o_model }}</td>
-            <td>{{ item.o_size }}</td>
+            <td>{{ item.o_shoes.sh_color }}</td>
+            <td>{{ item.o_shoes.sh_model }}</td>
+            <td>{{ item.o_shoes.sh_size }}</td>
             <td>{{ item.o_count }}</td>
             <td>{{ item.o_sum }}</td>
             <td>
-                {% if item.o_status == True %}
-                    <div class="access-active"><span>Active</span></div>
+                {% if item.o_status == 'accepted' %}
+                    <div class=""><span>Прийнято</span></div>
+                {% elif item.o_status == 'paid' %}
+                    <div class=""><span>Оплачено</span></div>
+                {% elif item.o_status == 'in_processing' %}
+                    <div class=""><span>В обробці</span></div>
+                {% elif item.o_status == 'shipped' %}
+                    <div class=""><span>Відправлено</span></div>
+                {% elif item.o_status == 'delivered' %}
+                    <div class=""><span>Доставлено</span></div>
                 {% else %}
-                    <div class="access-non-active"><span>Non active</span></div>
+                    <div class=""><span>Оплачено поставнику</span></div>
                 {% endif %}
             </td>
-            <td>{{ item.o_user.u_name }}</td>
+            <td>{{ item.o_user.u_username }}</td>
+        </tr>
+            {% endfor %}
         </tbody>
-</table>
-    {% endfor %}
-</div>
 {% endblock %}

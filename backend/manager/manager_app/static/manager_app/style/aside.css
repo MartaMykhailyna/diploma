@@ -51,7 +51,7 @@ aside.active .btn-burger{
 .avatar-container-wrapper{
     display: flex;
     justify-content: center;
-    transition: all 0.5s ease-in-out;
+    transition: all 0.2s ease-in-out;
 
     /* align-items: center;
     flex-wrap: wrap;
@@ -117,7 +117,7 @@ aside.active .name-container {
     justify-content: center;
     height: 60px;
     /* padding-left: 25px; */
-    transition: all .5s  ease-in-out;
+    transition: all .2s  ease-in-out;
 }
 .menu-item p{
     display: none;

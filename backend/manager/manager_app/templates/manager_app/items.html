@@ -1,10 +1,15 @@
 {% extends "layout.html" %}
 {% block content %}
-  <div class="table-container">
-    <table>
+<ul id="currency-selector">
+  <li><a href="javascript:void(0);" onclick="changeCurrency('UAH')">гривні (UAH)</a></li>
+  <li><a href="javascript:void(0);" onclick="changeCurrency('EUR')">євро (EUR) </a></li>
+  <li><a href="javascript:void(0);" onclick="changeCurrency('USD')">долари (USD)</a></li>
+  <li><a href="javascript:void(0);" onclick="changeCurrency('GBP')">фунти (GBP)</a></li>
+</ul>
+
       <thead>
         <tr>
-          <th>№</th>
+          <!-- <th>№</th> -->
           <th>Фото</th>
           <th>Назва</th>
           <th>Модель</th>
@@ -13,23 +18,28 @@
           <th>Кількість</th>
           <th>Виробник</th>
           <th>Вартість</th>
+          <th>Управління</th>
         </tr>
       </thead>
       <tbody>
       {% for item in data %}
           <tr>
-            <td>{{ item.id_shoes }}</td>
-            <td>{{ item.sh_image }}</td>
+            <!-- <td>{{ item.id_shoes }}</td> -->
+            <td><img src="{{ item.sh_image.url }}" alt=""></td>
             <td>{{ item.sh_name }}</td>
             <td>{{ item.sh_model }}</td>
             <td>{{ item.sh_size }}</td>
             <td>{{ item.sh_color }}</td>
             <td>{{ item.sh_count }}</td>
             <td>{{ item.sh_manufacturer }}</td>
-            <td>{{ item.sh_price }}</td>
+            <!-- <td>{{ item.sh_price }}</td> -->
+            <td> <span class="product-price" data-base-price="{{ item.sh_price }}">£{{item.sh_price}}</span> </td>
+            <td>
+              <button>sfjskf</button>
+              <button>askdp</button>
+              <button>qpwp</button>
+            </td>
           </tr>
+          {% endfor %}
         </tbody>
-      {% endfor %}
-      </table>
-  </div>
-{% endblock %}
+        {% endblock %}

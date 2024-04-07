@@ -1,10 +1,8 @@
 {% extends "layout.html" %}
 {% block content %}
-<div class="table-container">
-<table>
     <thead>
         <tr>
-            <th>№</th>
+            <!-- <th>№</th> -->
             <th>Назва</th>
             <th>Колір</th>
             <th>Модель</th>
@@ -18,18 +16,16 @@
     <tbody>
 {% for item in data %}
         <tr>
-            <td>{{ item.id_reservation }}</td>
-            <td>{{ item.r_shoes }}</td>
-            <td>{{ item.r_color }}</td>
-            <td>{{ item.r_model }}</td>
+            <!-- <td>{{ item.id_reservation }}</td> -->
+            <td>{{ item.r_shoes.sh_name }}</td>
+            <td>{{ item.r_shoes.sh_color }}</td>
+            <td>{{ item.r_shoes.sh_model }}</td>
             <td>{{ item.r_size }}</td>
             <td>{{ item.r_count }}</td>
             <td>{{ item.r_start_date }}</td>
             <td>{{ item.r_end_date }}</td>
-            <td>{{ item.r_user }}</td>
+            <td>{{ item.r_user.u_username }}</td>
         </tr>
+        {% endfor %}
     </tbody>
-    {% endfor %}
-</table>
-</div>
 {% endblock %}

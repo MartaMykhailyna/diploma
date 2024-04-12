@@ -1,15 +1,29 @@
-{% extends "layout.html" %}
-{% block content %}
-<ul id="currency-selector">
-  <li><a href="javascript:void(0);" onclick="changeCurrency('UAH')">гривні (UAH)</a></li>
-  <li><a href="javascript:void(0);" onclick="changeCurrency('EUR')">євро (EUR) </a></li>
-  <li><a href="javascript:void(0);" onclick="changeCurrency('USD')">долари (USD)</a></li>
-  <li><a href="javascript:void(0);" onclick="changeCurrency('GBP')">фунти (GBP)</a></li>
-</ul>
-
+{% extends "manager_app/tables.html" %}
+{% block title %}Items{% endblock %}
+{% block table %}
+<div class="dropdown-container">
+  <button class="dropdown-button main-button">
+    <span class="dropdown-title-icon">
+      <i class="fa-solid fa-sterling-sign"></i>
+    </span>
+    <span class="dropdown-title text-truncate">GBP</span>
+    <span class="dropdown-arrow" style="display: flex; justify-content: center; align-items: center;">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="-3 -3 20 20">
+        <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
+      </svg>
+    </span>
+  </button>
+  <div class="dropdown-list-container">
+    <div class="dropdown-list-wrapper">
+      <ul class="dropdown-list"></ul>
+      <div class="floating-icon" aria-hidden="true"></div>
+    </div>
+  </div>
+</div>
       <thead>
         <tr>
-          <!-- <th>№</th> -->
+          <th></th>
+          <th>ID sor</th>
           <th>Фото</th>
           <th>Назва</th>
           <th>Модель</th>
@@ -24,7 +38,8 @@
       <tbody>
       {% for item in data %}
           <tr>
-            <!-- <td>{{ item.id_shoes }}</td> -->
+            <td><input type="checkbox" name="" id=""></td>
+            <td>{{ item.id_shoes }}</td>
             <td><img src="{{ item.sh_image.url }}" alt=""></td>
             <td>{{ item.sh_name }}</td>
             <td>{{ item.sh_model }}</td>

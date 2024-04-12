@@ -26,7 +26,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'manager_app',
-    'currency_exchange'
+    'currency_exchange',
+    'manager_edit',
 ]
 
 MIDDLEWARE = [
@@ -44,7 +45,7 @@ ROOT_URLCONF = 'manager.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'manager_app/templates/manager_app')],
+        'DIRS': [os.path.join(BASE_DIR, 'manager_app/templates/')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -108,14 +109,14 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-STATIC_URL = 'manager_app/static/manager_app/'
+STATIC_URL = 'manager_app/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, "static/")
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'manager_app/static/manager_app'),
+    os.path.join(BASE_DIR, 'manager_app/static/'),
 
 ]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+# DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'

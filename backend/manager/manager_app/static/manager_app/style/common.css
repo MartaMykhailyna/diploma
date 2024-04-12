@@ -42,6 +42,25 @@ a:hover{
     /* background-color: #909090;
     background-color: #474554;
     background-color: #43645A; */
+
+    --bg-color: #222429;
+    --primary-bg-color: #333740;
+    --primary-color: #2c62f6;
+    --text-color: #b1b8ca;
+    --text-active: #ffffff;
+    --button-hover-bg-color: #2b2e34;
+    --border-color: #494d59;
+    --dropdown-height: 0;
+    --rotate-arrow: 0;
+    --translate-value: 0;
+    --list-opacity: 0;
+    --transition-time: 0.4s;
+    --transition-timing: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    --border-radius: 1.4rem;
+    --list-button-height: 2rem;
+    --floating-icon-size: 26;
+    --floating-icon-top: 0;
+    --floating-icon-left: 0;
 }
 li{
     list-style: none;
@@ -132,12 +151,19 @@ th {
   gap: 5px;
 }
 .num_rows {
-  width: 20%;
+  width: 22%;
+  border-radius: var(--border-radius);
   /* float:left; */
+}
+.num_rows .form-control{
+    border-radius: var(--border-radius);
 }
 .tb_search{
   width: 80%;
   /* float:right; */
+}
+.tb_search .form-control{
+    border-radius: var(--border-radius);
 }
 .pagination-container {
   width: 70%;

@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from manager_app.models import *
+from django.db.models import DecimalField, ExpressionWrapper, F, Sum
 
 def index(request):
     return render(request, 'manager_app/index.html')
@@ -15,22 +16,54 @@ def items(request):
     data = Shoes.objects.all()
     return render(request, 'manager_app/items.html', {'data': data})
 
-def orders(request):
-    # return render(request, 'orders.html')
-    data = Orders.objects.all()
-    return render(request, 'manager_app/orders.html', {'data': data})
-
-def reservations(request):
-    # return render(request, 'orders.html')
-    data = Reservations.objects.all()
-    return render(request, 'manager_app/reservations.html', {'data': data})
-
+def items_detailed_view(request, id):
+    item = get_object_or_404(Shoes, id_shoes=id)
+    photos = ShoesImages.objects.filter(item=item)
+    # Either render only the modal content, or a full standalone page
+    if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+        template_name = 'manager_app/items.html'
+    else:
+        template_name = 'manager_app/items.html'
+    return render(request, template_name, {
+        'item':item,
+        'photos':photos
+    })
 
 def users(request):
     # return render(request, 'users.html')
     data = Users.objects.all()
     return render(request, 'manager_app/users.html', {'data': data})
 
+def orders(request):
+    # return render(request, 'orders.html')
+    data = Orders.objects.all()
+    for item in data:
+        item.order_sum = item.o_count * item.o_shoes.sh_price
+    return render(request, 'manager_app/orders.html', {'data': data})
+
+def orders_detailed_view(request, id):
+    item = get_object_or_404(Orders, id_order=id)
+    # photos = ShoesImages.objects.filter(item=item)
+    # Either render only the modal content, or a full standalone page
+    if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+        template_name = 'manager_app/orders.html'
+    else:
+        template_name = 'manager_app/orders.html'
+    return render(request, template_name, {
+        'item':item,
+        
+    })
+    
+# def order_sum_view(request):
+    # total_sum = Orders.objects.aggregate(total_sum=Sum(F('o_count') * F('o_shoes__sh_price')))
+    # order_sum = total_sum['total_sum'] if total_sum['total_sum'] else 0
+    # return render(request, 'orders.html', {'order_sum': order_sum})
+
+
+def reservations(request):
+    # return render(request, 'orders.html')
+    data = Reservations.objects.all()
+    return render(request, 'manager_app/reservations.html', {'data': data})
 
 def analytics(request):
     return render(request, 'manager_app/analytics.html')

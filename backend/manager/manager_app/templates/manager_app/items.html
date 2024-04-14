@@ -1,4 +1,5 @@
 {% extends "manager_app/tables.html" %}
+{% load static %}
 {% block title %}Items{% endblock %}
 {% block table %}
 <div class="dropdown-container">
@@ -40,8 +41,26 @@
           <tr>
             <td><input type="checkbox" name="" id=""></td>
             <td>{{ item.id_shoes }}</td>
-            <td><img src="{{ item.sh_image.url }}" alt=""></td>
-            <td>{{ item.sh_name }}</td>
+            <td>
+            <img src="{{ item.sh_image.url }}" alt=""></td>
+            <!-- <td><a onclick="openModal() ">{{ item.sh_name }}</a></td> -->
+            <td>
+              <a 
+                href="#" 
+                class="open-modal" 
+                data-action="{% url 'items-photos' item.id_shoes %}"
+                data-id="{{ item.id_shoes }}" 
+                data-name="{{ item.sh_name }}" 
+                data-model="{{ item.sh_model }}" 
+                data-size="{{ item.sh_size }}" 
+                data-color="{{ item.sh_color }}" 
+                data-count="{{ item.sh_count }}" 
+                data-manufacturer="{{ item.sh_manufacturer }}" 
+                data-price="{{ item.sh_price }}"
+                onclick="openModal(event); return false;">{{ item.sh_name }}
+              </a>
+            </td>
+            <!-- <td ><span class="item-name">{{ item.sh_name }}</span></td> -->
             <td>{{ item.sh_model }}</td>
             <td>{{ item.sh_size }}</td>
             <td>{{ item.sh_color }}</td>
@@ -57,4 +76,43 @@
           </tr>
           {% endfor %}
         </tbody>
+        {% endblock %}
+        
+        {% block modals %}
+        
+        <div id="modal" class="mw-container-item-detail">
+          <div class="mw-item-detail-content">
+              <span class="close" onclick="closeModal()">&times;</span>
+              <div class="carousel-container">
+                  <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                      <div class="carousel-inner">
+                      {% for p in photos %}
+                      <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                          <img src="{{ p.images.url }}" alt="" width="300px" height="300px">
+                      </div>
+                      {% endfor %}
+                      </div>
+                      <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                      <span class="sr-only">Previous</span>
+                      </a>
+                      <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                      <span class="sr-only">Next</span>
+                      </a>
+                  </div>
+              </div>
+              <div class="mw-di-second-column-container">
+                  <h1>{{ item.sh_name }}</h1>
+                  <p>ID: {{ item.id_shoes }}</p>
+                  <p>Model: {{ item.sh_model }}</p>
+                  <p>Size: {{ item.sh_size }}</p>
+                  <p>Color: {{ item.sh_color }}</p>
+                  <p>Count: {{ item.sh_count }}</p>
+                  <p>Manufacturer: {{ item.sh_manufacturer }}</p>
+                  <p>Price: £{{ item.sh_price }}</p>
+              </div>
+           </div>
+       </div>
+       
         {% endblock %}

@@ -3,7 +3,7 @@
 {% block table %}
         <thead>
             <tr>
-                <!-- <th>№</th> -->
+                <th>ID</th>
                 <th>Унікальне ім'я в системі</th>
                 <th>Ім'я</th>
                 <th>Прізвище</th>
@@ -16,7 +16,7 @@
         <tbody>
   {% for item in data %}
             <tr>
-                <!-- <td>{{ item.id_admin }}</td> -->
+                <td>{{ item.id_admins }}</td>
                 <td>{{ item.a_username }}</td>
                 <td>{{ item.a_name }}</td>
                 <td>{{ item.a_surname }}</td>

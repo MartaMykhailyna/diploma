@@ -23,8 +23,8 @@
 </div>
       <thead>
         <tr>
-          <th></th>
-          <th>ID sor</th>
+          <th><input type="checkbox" name="headerCheckbox" id="headerCheckbox"></th>
+          <th>ID</th>
           <th>Фото</th>
           <th>Назва</th>
           <th>Модель</th>
@@ -39,7 +39,7 @@
       <tbody>
       {% for item in data %}
           <tr>
-            <td><input type="checkbox" name="" id=""></td>
+            <td><input type="checkbox" name="dataCheckbox" value="{{ item.id }}"></td>
             <td>{{ item.id_shoes }}</td>
             <td>
             <img src="{{ item.sh_image.url }}" alt=""></td>
@@ -52,7 +52,7 @@
                 data-id="{{ item.id_shoes }}" 
                 data-name="{{ item.sh_name }}" 
                 data-model="{{ item.sh_model }}" 
-                data-size="{{ item.sh_size }}" 
+                data-size="{{ item.sh_size_array }}" 
                 data-color="{{ item.sh_color }}" 
                 data-count="{{ item.sh_count }}" 
                 data-manufacturer="{{ item.sh_manufacturer }}" 
@@ -62,23 +62,27 @@
             </td>
             <!-- <td ><span class="item-name">{{ item.sh_name }}</span></td> -->
             <td>{{ item.sh_model }}</td>
-            <td>{{ item.sh_size }}</td>
+            <td>
+              {% for size in sizes_data %}
+              {{ size }}
+              {% endfor %}
+            </td>
             <td>{{ item.sh_color }}</td>
             <td>{{ item.sh_count }}</td>
             <td>{{ item.sh_manufacturer }}</td>
             <!-- <td>{{ item.sh_price }}</td> -->
             <td> <span class="product-price" data-base-price="{{ item.sh_price }}">£{{item.sh_price}}</span> </td>
-            <td>
-              <button>sfjskf</button>
-              <button>askdp</button>
-              <button>qpwp</button>
+            <td class="table-controls" style="min-width: 30px">
+              <button class="btn-edit"><i class="fa-regular fa-pen-to-square"></i></button>
+              <button class="btn-delete"><i class="fa-solid fa-trash-can"></i></button>
+              <button class="btn-confirm"><i class="fa-regular fa-circle-check"></i></button>
             </td>
           </tr>
           {% endfor %}
         </tbody>
         {% endblock %}
         
-        {% block modals %}
+        {% block modals-detailed-view %}
         
         <div id="modal" class="mw-container-item-detail">
           <div class="mw-item-detail-content">
@@ -106,11 +110,24 @@
                   <h1>{{ item.sh_name }}</h1>
                   <p>ID: {{ item.id_shoes }}</p>
                   <p>Model: {{ item.sh_model }}</p>
-                  <p>Size: {{ item.sh_size }}</p>
+                  <p>Size: {{ item.sh_size_array }}</p>
                   <p>Color: {{ item.sh_color }}</p>
                   <p>Count: {{ item.sh_count }}</p>
-                  <p>Manufacturer: {{ item.sh_manufacturer }}</p>
                   <p>Price: £{{ item.sh_price }}</p>
+              </div>
+           </div>
+       </div>
+       
+        {% endblock %}
+
+        {% block modals-form %}
+      
+        <div id="modal-form" class="mw-container-form">
+          <div class="mw-form-content">
+              <!-- <span class="close" onclick="closeModal()">&times;</span> -->
+              
+              <div class="mw-form-second-column-container">
+                  
               </div>
            </div>
        </div>

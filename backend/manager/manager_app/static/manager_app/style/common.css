@@ -130,8 +130,12 @@ th {
   background: #333;
   color: #fff;
 }
+table.table.table-striped tr th:first-child, td:first-child{
+    display: none;
+}
 .pagination-container{
-    border: 2px solid violet;
+    /* border: 2px solid violet; */
+    max-height: 20px;
 
 }
 .pagination {
@@ -171,7 +175,7 @@ th {
 }
 .pagination{
     /* width: 100%; */
-    border: 1px solid var(--accent-color-green);
+    /* border: 1px solid var(--accent-color-green); */
 }
 .page-item{
     border: 1px solid var(--accent-color-violet);
@@ -188,4 +192,9 @@ th {
   text-align:right;
   color: #333;
   border: 2px solid wheat;
+}
+.table-controls button{
+    width: 30%;
+    height: auto;
+    cursor:pointer;
 }

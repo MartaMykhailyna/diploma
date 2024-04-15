@@ -3,7 +3,7 @@
 {% block table %}
     <thead>
         <tr>
-            <!-- <th>№</th> -->
+            <th>ID</th>
             <th>Назва</th>
             <th>Колір</th>
             <th>Модель</th>
@@ -17,7 +17,7 @@
     <tbody>
 {% for item in data %}
         <tr>
-            <!-- <td>{{ item.id_reservation }}</td> -->
+            <td>{{ item.id_reservation }}</td>
             <td>{{ item.r_shoes.sh_name }}</td>
             <td>{{ item.r_shoes.sh_color }}</td>
             <td>{{ item.r_shoes.sh_model }}</td>

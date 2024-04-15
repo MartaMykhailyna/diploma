@@ -141,3 +141,20 @@ class Orders(models.Model):
     
     class Meta:
         db_table = 'orders'
+
+
+
+
+                {% block modals-form %}
+      
+        <!-- <div id="modal-form" class="mw-container-form">
+          <div class="mw-form-content">
+              <span class="close" onclick="closeModal()">&times;</span>
+              
+              <div class="mw-form-second-column-container">
+                  
+              </div>
+           </div>
+       </div> -->
+       
+        {% endblock %}

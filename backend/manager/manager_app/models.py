@@ -1,5 +1,6 @@
 from django.db import models
 from enum import Enum
+from django.contrib.postgres.fields import ArrayField
 
 class Order_status(Enum):
     accepted = 'Прийнято'
@@ -20,12 +21,15 @@ class Admins(models.Model):
     
     class Meta:
         db_table = 'admins'
-        
+   
+class ShoeSize(models.Model):
+    size = models.IntegerField()  
+     
 class Shoes(models.Model):
     id_shoes = models.AutoField(primary_key=True, unique=True)
     sh_name = models.CharField(max_length=255)
     sh_model = models.CharField(max_length=255)
-    sh_size = models.DecimalField(max_digits=5, decimal_places=2)
+    sh_size_array = ArrayField(models.IntegerField(), blank=False)
     sh_color = models.CharField(max_length=255)
     sh_manufacturer = models.CharField(max_length=255, blank=True, null=True)
     sh_count = models.IntegerField(null=False, default=1)
@@ -77,3 +81,5 @@ class Reservations(models.Model):
     
     class Meta:
         db_table = 'reservations'
+        
+        

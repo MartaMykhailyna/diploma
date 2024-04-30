@@ -29,9 +29,20 @@
                         <div class="access-non-active"><span>Non active</span></div>
                     {% endif %}
                 </td>
-                <td>
-                    <button>dgdk</button>
-                </td>
+                <td class="table-controls" style="min-width: 30px">
+                    <!-- <button onclick="openModalForm(event);return false;" class="btn-edit"><i class="fa-regular fa-pen-to-square"></i></button> -->
+                    <button class="btn-edit"><i class="fa-regular fa-pen-to-square"></i></button>
+                    <button class="btn-delete"><i class="fa-solid fa-trash-can"></i></button>
+                    <button class="btn-confirm">
+                        <form action="{% url 'admins_toggle_status' item.id_admins %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit" style="background: none; border: none;">
+                                <i class="fa-regular fa-circle-check"></i>
+                            </button>
+                        </form>
+                    </button>
+                  </td>
+      
             </tr>
             {% endfor %}
       </tbody>

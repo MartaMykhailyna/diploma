@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     'manager_app',
     'currency_exchange',
     'manager_edit',
+    'manager_login',
 ]
 
 MIDDLEWARE = [

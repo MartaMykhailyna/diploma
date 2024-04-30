@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.http import HttpResponse
+# from django.http import HttpResponse
 from manager_app.models import *
 from django.db.models.signals import post_save
 from django.dispatch import receiver
@@ -12,15 +12,32 @@ def admins(request):
     data = Admins.objects.all()
     return render(request, 'manager_app/admins.html', {'data': data})
 
+def admins_toggle_status(request, admin_id):
+    admin = get_object_or_404(Admins, id_admins=admin_id)
+    if admin.a_status != True:
+       admin.a_status = True
+    else:
+        redirect('admins')
+    admin.save()
+    return redirect('admins')
+
+def users_toggle_status(request, user_id):
+    user = get_object_or_404(Users, id_user=user_id)
+    if user.u_status != True:
+       user.u_status = True
+    else:
+        redirect('users')
+    user.save()
+    return redirect('users')
+
+# def admins_edit(request, admin_id):
+#     admin = get_object_or_404(Admins, id_admin=admin_id)
+#     if request.method == 'POST':
+#         admin.a_username = request.POST.get('a_username')
+#         admin.a_name = request.POST.get('
+
+
 def items(request):
-    # return render(request, 'items.html')
-    # data = Shoes.objects.all()
-    # shoes_data = Shoes.objects.all()
-    # for shoe in shoes_data:
-    #     sizes = shoe.sizes.all()
-    #     for size in sizes:
-    #         print(size.size)
-    # return render(request, 'manager_app/items.html', {'data': data})
     data = Shoes.objects.all()
     shoes_data = Shoes.objects.all()
     for shoe in shoes_data:
@@ -42,6 +59,30 @@ def items_detailed_view(request, id):
         'item':item,
         'photos':photos
     })
+    
+# def items_form_edit(request, id):
+#     item = get_object_or_404(Shoes, id_shoes=id)
+#     photos = ShoesImages.objects.filter(item=item)
+#     # Either render only the modal content, or a full standalone page
+#     if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+#         template_name = 'manager_app/items.html'
+#         if request.method == 'POST':
+#             item.sh_name = request.POST.get('sh_name')
+#             item.sh_model = request.POST.get('sh_model')
+#             item.sh_size_array = request.POST.get('sh_size_array')
+#             item.sh_color = request.POST.get('sh_color')
+#             item.sh_manufacturer = request.POST.get('sh_manufacturer')
+#             item.sh_count = request.POST.get('sh_count')
+#             item.sh_price = request.POST.get('sh_price')
+#             item.sh_image = request.POST.get('sh_image')
+#             item.save()
+#             return redirect('items')
+#     else:
+#         template_name = 'manager_app/items.html'
+#     return render(request, template_name, {
+#         'item':item,
+#         'photos':photos
+#     })
 
 def users(request):
     # return render(request, 'users.html')
@@ -82,10 +123,8 @@ def reservations(request):
 def analytics(request):
     return render(request, 'manager_app/analytics.html')
 
-# Отримуємо всі замовлення з додатковою інформацією про взуття
 # orders_with_shoes_info = Orders.objects.select_related('o_shoes').all()
 
-# # Тепер ви можете перебрати ці замовлення та отримати інформацію про взуття
 # for order in orders_with_shoes_info:
 #     print("Замовлення ID:", order.id_order)
 #     print("Колір взуття:", order.o_shoes.sh_color)

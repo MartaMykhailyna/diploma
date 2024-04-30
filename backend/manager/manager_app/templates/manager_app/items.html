@@ -17,7 +17,7 @@
   <div class="dropdown-list-container">
     <div class="dropdown-list-wrapper">
       <ul class="dropdown-list"></ul>
-      <div class="floating-icon" aria-hidden="true"></div>
+      <!-- <div class="floating-icon" aria-hidden="true"></div> -->
     </div>
   </div>
 </div>
@@ -73,7 +73,7 @@
             <!-- <td>{{ item.sh_price }}</td> -->
             <td> <span class="product-price" data-base-price="{{ item.sh_price }}">£{{item.sh_price}}</span> </td>
             <td class="table-controls" style="min-width: 30px">
-              <button class="btn-edit"><i class="fa-regular fa-pen-to-square"></i></button>
+              <button onclick="openModalForm(event);return false;" class="btn-edit"><i class="fa-regular fa-pen-to-square"></i></button>
               <button class="btn-delete"><i class="fa-solid fa-trash-can"></i></button>
               <button class="btn-confirm"><i class="fa-regular fa-circle-check"></i></button>
             </td>
@@ -82,11 +82,15 @@
         </tbody>
         {% endblock %}
         
+      
+        {% block wrapper %}
+          
         {% block modals-detailed-view %}
         
         <div id="modal" class="mw-container-item-detail">
           <div class="mw-item-detail-content">
-              <span class="close" onclick="closeModal()">&times;</span>
+              <!-- <span class="close" onclick="closeModal()">&times;</span> -->
+              <a class="close" href="{% url 'items' %}">&times;</a>
               <div class="carousel-container">
                   <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
                       <div class="carousel-inner">
@@ -119,17 +123,4 @@
        </div>
        
         {% endblock %}
-
-        {% block modals-form %}
-      
-        <div id="modal-form" class="mw-container-form">
-          <div class="mw-form-content">
-              <!-- <span class="close" onclick="closeModal()">&times;</span> -->
-              
-              <div class="mw-form-second-column-container">
-                  
-              </div>
-           </div>
-       </div>
-       
-        {% endblock %}
+        {% endblock wrapper %}

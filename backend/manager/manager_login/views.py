@@ -1,3 +1,40 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from .forms import LoginForm
+from manager_app.models import Admins, Users
+from django.contrib import messages
 
-# Create your views here.
+def login(request):
+    form = LoginForm(request.POST)
+    if form.is_valid():
+            email = form.cleaned_data['email']
+            phone = form.cleaned_data['password']
+
+            admin = Admins.objects.filter(a_email=email, a_phone=phone).first()
+            if admin:
+                return redirect('index')
+            else:
+                messages.error(request, 'Invalid login credentials.')
+            user = Users.objects.filter(u_email=email, u_phone=phone).first()
+            if user:
+                return redirect('index')
+            else:
+                messages.error(request, 'Invalid login credentials.')
+    else:
+        form = LoginForm()
+    return render(request, 'manager_login/login.html', {'form': form})
+
+# def users_login(request):
+#     form = LoginForm(request.POST)
+#     if form.is_valid():
+#             email = form.cleaned_data['email']
+#             phone = form.cleaned_data['password']
+
+#             user = Users.objects.filter(u_email=email, u_phone=phone).first()
+#             if user:
+#                 return redirect('index')
+#             else:
+#                 messages.error(request, 'Invalid login credentials.')
+#     else:
+#         form = LoginForm()
+
+    # return render(request, 'manager_login/login.html', {'form': form})

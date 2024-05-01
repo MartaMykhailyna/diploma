@@ -131,9 +131,9 @@ th {
   background: #333;
   color: #fff;
 }
-table.table.table-striped tr th:first-child, td:first-child{
+/* table.table.table-striped tr th:first-child, td:first-child{
     display: none;
-}
+} */
 .pagination-container{
     /* border: 2px solid violet; */
     max-height: 20px;

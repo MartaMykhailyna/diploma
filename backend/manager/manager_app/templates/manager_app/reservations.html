@@ -26,6 +26,27 @@
             <td>{{ item.r_start_date }}</td>
             <td>{{ item.r_end_date }}</td>
             <td>{{ item.r_user.u_username }}</td>
+            <td class="table-controls" style="min-width: 30px">
+                <!-- <button onclick="openModalForm(event);return false;" class="btn-edit"><i class="fa-regular fa-pen-to-square"></i></button> -->
+                <button class="btn-edit"><i class="fa-regular fa-pen-to-square"></i></button>
+                <button class="btn-delete">
+                    <form action="{% url 'reservations-delete' item.id_reservations %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" style="background: none; border: none;">
+                            <i class="fa-solid fa-trash-can"></i>
+
+                        </button>
+                    </form>
+                </button>
+                <button class="btn-confirm">
+                    <form action="{% url 'reservations_toggle_status' item.id_reservations %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" style="background: none; border: none;">
+                            <i class="fa-regular fa-circle-check"></i>
+                        </button>
+                    </form>
+                </button>
+              </td>
         </tr>
         {% endfor %}
     </tbody>

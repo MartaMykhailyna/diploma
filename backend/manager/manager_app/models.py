@@ -26,7 +26,7 @@ class ShoeSize(models.Model):
     size = models.IntegerField()  
      
 class Shoes(models.Model):
-    id_shoes = models.AutoField(primary_key=True, unique=True)
+    id_shoes = models.IntegerField(unique=True)
     sh_name = models.CharField(max_length=255)
     sh_model = models.CharField(max_length=255)
     sh_size_array = ArrayField(models.IntegerField(), blank=False)
@@ -48,7 +48,7 @@ class ShoesImages(models.Model):
         return self.item.sh_name
     
 class Users(models.Model):
-    id_user = models.IntegerField(primary_key=True)
+    id_user = models.IntegerField()
     u_username = models.CharField(max_length=255)
     u_name = models.CharField(max_length=255)
     u_surname = models.CharField(max_length=255)
@@ -60,7 +60,7 @@ class Users(models.Model):
         db_table = 'users'
     
 class Orders(models.Model):
-    id_order = models.IntegerField(primary_key=True)
+    id_order = models.IntegerField()
     o_shoes = models.ForeignKey(Shoes, on_delete=models.CASCADE, db_column='o_shoes')
     o_count = models.IntegerField(null=False, default=1)
     o_sum = models.DecimalField(max_digits=10, decimal_places=2)
@@ -72,7 +72,7 @@ class Orders(models.Model):
        
        
 class Reservations(models.Model):
-    id_reservation = models.IntegerField(primary_key=True)
+    id_reservation = models.IntegerField()
     r_shoes = models.ForeignKey(Shoes, on_delete=models.CASCADE, db_column='r_shoes')
     r_count = models.IntegerField(null=False, default=1)
     r_start_date = models.DateTimeField(auto_now_add=True)

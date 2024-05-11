@@ -6,3 +6,7 @@ How to run Django server:
   ``` 
   py manage.py runserver
 ```
+ PostgresSQL 16.3
+ ```
+import psycopg2
+```

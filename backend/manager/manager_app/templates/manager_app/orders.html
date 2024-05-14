@@ -66,31 +66,28 @@
                     <div class=""><span>Оплачено поставнику</span></div>
                 {% endif %}
             </td>
+            <td>{{ item.o_user.u_username }}</td>
             <td class="table-controls" style="min-width: 30px">
                 <!-- <button onclick="openModalForm(event);return false;" class="btn-edit"><i class="fa-regular fa-pen-to-square"></i></button> -->
-                <!-- <button class="btn-edit"><i class="fa-regular fa-pen-to-square"></i></button> -->
-                <div class="btn-edit">
-                    <a href="{% url 'update-order' item.id_order %}">
-                      <i class="fa-regular fa-pen-to-square"></i>
-                    </a>
-                  </div>
+                <button class="btn-edit"><i class="fa-regular fa-pen-to-square"></i></button>
                 <button class="btn-delete">
-                    <form action="{% url 'orders-delete' item.id_order %}" method="post">
+                    <form action="{% url 'orders-delete' item.id_orders %}" method="post">
                         {% csrf_token %}
-                        <button type="submit" style="background:none; border:none; padding:0; margin:0;">
+                        <button type="submit" style="background: none; border: none;">
                             <i class="fa-solid fa-trash-can"></i>
+
                         </button>
                     </form>
                 </button>
                 <button class="btn-confirm">
-                    
+                    <form action="{% url 'orders_toggle_status' item.id_orders %}" method="post">
+                        {% csrf_token %}
                         <button type="submit" style="background: none; border: none;">
                             <i class="fa-regular fa-circle-check"></i>
                         </button>
-                    <!-- </form> -->
+                    </form>
                 </button>
-              </td>                
-
+              </td>
         </tr>
             {% endfor %}
         </tbody>

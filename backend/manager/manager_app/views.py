@@ -8,10 +8,69 @@ from django.contrib import messages
 def index(request):
     return render(request, 'manager_app/index.html')
 
+def admins(request):
+    # return render(request, 'admins.html')
+    data = Admins.objects.all()
+    return render(request, 'manager_app/admins.html', {'data': data})
+
+def admins_delete(request, admin_id):
+     admin = get_object_or_404(Admins, id_admins=admin_id)
+
+     if request.method == 'POST':
+         admin.delete()
+         return redirect('admins')
+     return redirect('admins')
+
+
+def admins_toggle_status(request, admin_id):
+    admin = get_object_or_404(Admins, id_admins=admin_id)
+    if admin.a_status != True:
+       admin.a_status = True
+    else:
+        redirect('admins')
+    admin.save()
+    return redirect('admins')
+
+def users(request):
+    # return render(request, 'users.html')
+    data = Users.objects.all()
+    return render(request, 'manager_app/users.html', {'data': data})
+
+def users_delete(request, user_id):
+     user = get_object_or_404(Users, id_user=user_id)
+
+     if request.method == 'POST':
+         user.delete()
+         return redirect('users')
+     return redirect('users')
+
+def users_toggle_status(request, user_id):
+    user = get_object_or_404(Users, id_user=user_id)
+    if user.u_status != True:
+       user.u_status = True
+    else:
+        redirect('users')
+    user.save()
+    return redirect('users')
+
+# def admins_edit(request, admin_id):
+#     admin = get_object_or_404(Admins, id_admin=admin_id)
+#     if request.method == 'POST':
+#         admin.a_username = request.POST.get('a_username')
+#         admin.a_name = request.POST.get('
+
+
 def items(request):
     data = Shoes.objects.all()
     return render(request, 'manager_app/items.html', {'data': data})
 
+def items_delete(request, item_id):
+     item = get_object_or_404(Shoes, id_item=item_id)
+
+     if request.method == 'POST':
+         item.delete()
+         return redirect('item')
+     return redirect('item')
 
 def items_detailed_view(request, id):
     item = get_object_or_404(Shoes, id_shoes=id)
@@ -127,6 +186,14 @@ def orders(request):
     for item in data:
         item.order_sum = item.o_count * item.o_shoes.sh_price
     return render(request, 'manager_app/orders.html', {'data': data})
+
+def orders_delete(request, order_id):
+     order = get_object_or_404(Orders, id_order=order_id)
+
+     if request.method == 'POST':
+         order.delete()
+         return redirect('orders')
+     return redirect('orders')
 
 def orders_detailed_view(request, id):
     item = get_object_or_404(Orders, id_order=id)

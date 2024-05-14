@@ -18,7 +18,7 @@ class User_role(Enum):
 #     size = models.IntegerField()  
      
 class Shoes(models.Model):
-    id_shoes = models.AutoField(primary_key=True, unique=True)
+    id_shoes = models.IntegerField(primary_key=True,unique=True)
     sh_name = models.CharField(max_length=255)
     sh_model = models.CharField(max_length=255)
     sh_size = models.IntegerField(null=False, default=38)

@@ -46,14 +46,14 @@
                     </form>
                 </button>
                 <button class="btn-confirm">
-                    
+                    <form action="{% url 'reservations_toggle_status' item.id_reservations %}" method="post">
+                        {% csrf_token %}
                         <button type="submit" style="background: none; border: none;">
                             <i class="fa-regular fa-circle-check"></i>
                         </button>
-                    <!-- </form> -->
+                    </form>
                 </button>
-              </td>                
-
+              </td>
         </tr>
         {% endfor %}
     </tbody>

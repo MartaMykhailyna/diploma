@@ -2,6 +2,7 @@ import telebot
 from telebot import types
 import os
 import django
+from django.conf import settings
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'manager.settings')
 django.setup()
@@ -83,38 +84,42 @@ def process_shoes_id(message):
             shoes = Shoes.objects.get(id_shoes=shoes_id)
             info_message = f"Інформація про товар:\nНазва: {shoes.sh_name}\nМодель: {shoes.sh_model}\nРозмір: {shoes.sh_size}\nКолір: {shoes.sh_color}\nЦіна: {shoes.sh_price} грн"
             bot.send_message(message.chat.id, info_message)
+            # Отримуємо фізичний шлях до зображення
+            image_path = os.path.join(settings.MEDIA_ROOT, str(shoes.sh_image))
+            # Відкриваємо файл зображення
+            with open(image_path, 'rb') as photo:
+                bot.send_photo(message.chat.id, photo)
             bot.send_message(message.chat.id, "Бажаєте зробити замовлення? (Так / Ні)")
             bot.register_next_step_handler(message, process_order_confirmation, shoes)
         except Shoes.DoesNotExist:
             bot.send_message(message.chat.id, "Товар з таким ID не знайдено. Спробуйте ввести інший ID.")
     except ValueError:
         bot.send_message(message.chat.id, "Некоректне значення ID товару. Введіть ціле число.")
-
 def process_order_confirmation(message, shoes):
     try:
         user = Users.objects.get(id_user=message.chat.id)
         if message.text.lower() == "так":
             bot.send_message(message.chat.id, "Введіть кількість товару:")
-            bot.register_next_step_handler(message, process_quantity, shoes, user)
+            bot.register_next_step_handler(message, o_process_quantity, shoes, user)
         else:
             bot.send_message(message.chat.id, "Добре, якщо вам знадобиться допомога з замовленням, не соромтесь звертатися!")
     except Users.DoesNotExist:
         bot.send_message(message.chat.id, "Вибачте, але ваш обліковий запис не знайдено. Зареєструйтесь за допомогою команди /register.")
 
-def process_quantity(message, shoes, user):
+def o_process_quantity(message, shoes, user):
     try:
         quantity = int(message.text)
         if quantity <= 0:
             raise ValueError("Кількість має бути більше нуля.")
         elif quantity > shoes.sh_count:
             bot.send_message(message.chat.id, f"В наявності лише {shoes.sh_count} одиниць цього товару. Введіть іншу кількість:")
-            bot.register_next_step_handler(message, process_quantity, shoes, user)
+            bot.register_next_step_handler(message, o_process_quantity, shoes, user)
             return
         bot.send_message(message.chat.id, "Введіть отримувача (ім'я та прізвище):")
-        bot.register_next_step_handler(message, process_recipient, shoes, user, quantity)
+        bot.register_next_step_handler(message, o_process_quantity, shoes, user, quantity)
     except ValueError:
         bot.send_message(message.chat.id, "Некоректне значення кількості. Введіть ціле число більше нуля:")
-        bot.register_next_step_handler(message, process_quantity, shoes, user)
+        bot.register_next_step_handler(message, o_process_quantity, shoes, user)
     except Exception as e:
         bot.send_message(message.chat.id, f"Під час обробки кількості виникла помилка: {e}")
 
@@ -157,14 +162,14 @@ def add_reservation(message):
             if user.u_status:
                 bot.send_message(message.chat.id, "Введіть ID товару:")
                 # Очікувати відповідь користувача
-                bot.register_next_step_handler(message, process_shoes_id)
+                bot.register_next_step_handler(message, process_reserv_shoes_id)
             else:
                 bot.send_message(message.chat.id, "Вибачте, ваш акаунт не активний. Зверніться до адміністратора.")
     except Users.DoesNotExist:
         # Якщо користувача не знайдено, просимо його спочатку зареєструватися
         bot.send_message(message.chat.id, "Ви ще не зареєстровані. Скористайтеся командою /register.")
 
-def process_shoes_id(message):
+def process_reserv_shoes_id(message):
     try:
         shoes_id = int(message.text)
         try:

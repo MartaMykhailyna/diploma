@@ -8,82 +8,19 @@ from django.contrib import messages
 def index(request):
     return render(request, 'manager_app/index.html')
 
-def admins(request):
-    # return render(request, 'admins.html')
-    data = Admins.objects.all()
-    return render(request, 'manager_app/admins.html', {'data': data})
-
-def admins_delete(request, admin_id):
-     admin = get_object_or_404(Admins, id_admins=admin_id)
-
-     if request.method == 'POST':
-         admin.delete()
-         return redirect('admins')
-     return redirect('admins')
-
-
-def admins_toggle_status(request, admin_id):
-    admin = get_object_or_404(Admins, id_admins=admin_id)
-    if admin.a_status != True:
-       admin.a_status = True
-    else:
-        redirect('admins')
-    admin.save()
-    return redirect('admins')
-
-def users(request):
-    # return render(request, 'users.html')
-    data = Users.objects.all()
-    return render(request, 'manager_app/users.html', {'data': data})
-
-def users_delete(request, user_id):
-     user = get_object_or_404(Users, id_user=user_id)
-
-     if request.method == 'POST':
-         user.delete()
-         return redirect('users')
-     return redirect('users')
-
-def users_toggle_status(request, user_id):
-    user = get_object_or_404(Users, id_user=user_id)
-    if user.u_status != True:
-       user.u_status = True
-    else:
-        redirect('users')
-    user.save()
-    return redirect('users')
-
-# def admins_edit(request, admin_id):
-#     admin = get_object_or_404(Admins, id_admin=admin_id)
-#     if request.method == 'POST':
-#         admin.a_username = request.POST.get('a_username')
-#         admin.a_name = request.POST.get('
-
-
 def items(request):
     data = Shoes.objects.all()
     return render(request, 'manager_app/items.html', {'data': data})
 
-def items_delete(request, item_id):
-     item = get_object_or_404(Shoes, id_item=item_id)
-
-     if request.method == 'POST':
-         item.delete()
-         return redirect('item')
-     return redirect('item')
 
 def items_detailed_view(request, id):
     item = get_object_or_404(Shoes, id_shoes=id)
-    photos = ShoesImages.objects.filter(item=item)
     # Either render only the modal content, or a full standalone page
     if request.headers.get('x-requested-with') == 'XMLHttpRequest':
         template_name = 'manager_app/items.html'
     else:
         template_name = 'manager_app/items.html'
-    return render(request, template_name, {
-        'item':item,
-        'photos':photos
-    })
+    return render(request, template_name, {'item':item})
     
 def update_item(request, shoes_id):
     # Отримуємо об'єкт Shoes за його ідентифікатором
@@ -96,12 +33,12 @@ def update_item(request, shoes_id):
         item.sh_manufacturer = request.POST.get('sh_manufacturer')
         item.sh_count = request.POST.get('sh_count')
         item.sh_price = request.POST.get('sh_price')
-        item.sh_image = request.POST.get('sh_image')
-        images = request.FILES.getlist('sh_images')
+        # item.sh_image = request.POST.get('sh_image')
+        # images = request.FILES.getlist('sh_images')
         
-        # Оновлюємо дані предмета
-        for img in images:
-            ShoesImages.objects.create(item=item, images=img)
+        sh_image = request.FILES.get('sh_image')
+        if sh_image:
+            item.sh_image = sh_image
         item.save()
         return redirect('items')
     else:
@@ -186,14 +123,6 @@ def orders(request):
     for item in data:
         item.order_sum = item.o_count * item.o_shoes.sh_price
     return render(request, 'manager_app/orders.html', {'data': data})
-
-def orders_delete(request, order_id):
-     order = get_object_or_404(Orders, id_order=order_id)
-
-     if request.method == 'POST':
-         order.delete()
-         return redirect('orders')
-     return redirect('orders')
 
 def orders_detailed_view(request, id):
     item = get_object_or_404(Orders, id_order=id)

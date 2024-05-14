@@ -18,7 +18,7 @@ class User_role(Enum):
 #     size = models.IntegerField()  
      
 class Shoes(models.Model):
-    id_shoes = models.IntegerField(primary_key=True,unique=True)
+    id_shoes = models.AutoField(primary_key=True, unique=True)
     sh_name = models.CharField(max_length=255)
     sh_model = models.CharField(max_length=255)
     sh_size = models.IntegerField(null=False, default=38)
@@ -26,20 +26,20 @@ class Shoes(models.Model):
     sh_manufacturer = models.CharField(max_length=255, blank=True, null=True)
     sh_count = models.IntegerField(null=False, default=1)
     sh_price = models.DecimalField(max_digits=10, decimal_places=2)
-    sh_image = models.FileField(blank=False)  # Якщо використано bytea, можна використати BinaryField
+    sh_image = models.ImageField(blank=False, upload_to='images/')  # Якщо використано bytea, можна використати BinaryField
     
     class Meta:
         db_table = 'shoes'
         managed = False
 
-class ShoesImages(models.Model):
-    item = models.ForeignKey(Shoes, related_name='images', on_delete=models.CASCADE)
-    images = models.FileField(upload_to='images/')
-    is_first = models.BooleanField(default=False)
-    is_second = models.BooleanField(default=False)
+# class ShoesImages(models.Model):
+#     item = models.ForeignKey(Shoes, related_name='images', on_delete=models.CASCADE)
+#     images = models.FileField(upload_to='images/')
+#     # is_first = models.BooleanField(default=False)
+#     # is_second = models.BooleanField(default=False)
     
-    def __str__(self):
-        return self.item.id_shoes
+#     def __str__(self):
+#         return self.item.sh_name
     
 class Users(models.Model):
     id_user = models.IntegerField(primary_key=True)

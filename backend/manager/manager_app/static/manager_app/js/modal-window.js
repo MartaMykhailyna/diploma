@@ -45,7 +45,7 @@
 // }
 
 
-var modal = document.getElementById('modal');
+// var modal = document.getElementById('modal');
 // function openModal() {
     // event.preventDefault(); 
     // modal.style.display = 'block'; // Показати модальне вікно
@@ -87,28 +87,29 @@ fetch(url)
         alert('SERVER ERROR');
     });}
 function closeModal() {
+    var modal = document.getElementById('modal');
     modal.style.display = 'none'; // Pf,hfnb модальне вікно
 }
 closeModal();
 
-function openModalForm(event) {
-event.preventDefault(); // Зупинити типову поведінку посилання
-var modal = document.getElementById('modal-form');
-var url = event.target.dataset.action; // Отримати URL для AJAX-запиту
+// function openModalForm(event) {
+// event.preventDefault(); // Зупинити типову поведінку посилання
+// var modal = document.getElementById('modal-form');
+// var url = event.target.dataset.action; // Отримати URL для AJAX-запиту
 
-// AJAX-запит на сервер для отримання даних
-fetch(url)
-    .then(response => response.text())
-    .then(data => {
-        // Оновлюємо вміст модального вікна з отриманими даними
-        modal.querySelector('.mw-form-content').innerHTML = data;
-        modal.style.display = 'block'; // Показати модальне вікно
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        alert('SERVER ERROR');
-    });}
-function closeModalForm() {
-    modal.style.display = 'none'; // Pf,hfnb модальне вікно
-}
-closeModalForm();
+// // AJAX-запит на сервер для отримання даних
+// fetch(url)
+//     .then(response => response.text())
+//     .then(data => {
+//         // Оновлюємо вміст модального вікна з отриманими даними
+//         modal.querySelector('.mw-form-content').innerHTML = data;
+//         modal.style.display = 'block'; // Показати модальне вікно
+//     })
+//     .catch(error => {
+//         console.error('Error:', error);
+//         alert('SERVER ERROR');
+//     });}
+// function closeModalForm() {
+//     modal.style.display = 'none'; // Pf,hfnb модальне вікно
+// }
+// closeModalForm();

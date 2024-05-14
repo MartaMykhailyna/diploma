@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from .forms import LoginForm
-from manager_app.models import Admins, Users
+from manager_app.models import Users
 from django.contrib import messages
 
 def login(request):
@@ -9,11 +9,6 @@ def login(request):
             email = form.cleaned_data['email']
             phone = form.cleaned_data['password']
 
-            admin = Admins.objects.filter(a_email=email, a_phone=phone).first()
-            if admin:
-                return redirect('index')
-            else:
-                messages.error(request, 'Invalid login credentials.')
             user = Users.objects.filter(u_email=email, u_phone=phone).first()
             if user:
                 return redirect('index')

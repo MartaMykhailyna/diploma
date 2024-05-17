@@ -1,4 +1,63 @@
-{% extends "manager_app/layout.html" %}
-{% block content %}
-
-{% endblock %}
+{% extends "manager_app/layout.html" %} {% block wrapper %}
+<div class="main-wrapper">
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-light">
+      <a class="navbar-brand" href="#"
+        ><i class="fa-solid fa-shoe-prints"></i>Boots</a
+      >
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarNav"
+        aria-controls="navbarNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+      
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse navbar-collapse-container" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item active">
+            <a class="nav-link" href="#"
+              >Home <span class="sr-only">(current)</span></a
+            >
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Brands</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">New</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Contact</a>
+          </li>
+        </ul>
+        <div class="header__btn-container " style="border: 2px solid a">
+          <div class="header__btn-login-container header__btn nav-link">
+            <a class="" href="#">Log in</a>
+          </div>
+          <a class="header__btn-singup-container header__btn nav-link">
+            <p class="" href="#">Sing Up</a>
+          </a>
+        </div>
+      </div>
+    </nav>
+  </header>
+  <main>
+    <div class="get-started-container">
+      <div class="get-started-text">
+        <div class="get-started-text__main-text">
+          <p>let's explore unique clothes.</p>
+        </div>
+        <p>live for influential and innovative fashion!</p>
+        <div class="get-started__btn">
+          
+        </div>
+      </div>
+      <div class="get-started-artwork"></div>
+    </div>
+  </main>
+</div>
+{% endblock wrapper %}

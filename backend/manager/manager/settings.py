@@ -38,9 +38,11 @@ INSTALLED_APPS = [
     'currency_exchange',
     'manager_edit',
     'manager_login',
+    'livereload',
 ]
 
 MIDDLEWARE = [
+    'livereload.middleware.LiveReloadScript',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',

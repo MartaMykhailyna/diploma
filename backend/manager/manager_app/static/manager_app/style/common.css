@@ -8,7 +8,7 @@ body{
     /* background-color: #fff;  */
 }
 .landing{
-    display: flex;
+    /* display: flex; */
     font-family: Ubuntu, sans-serif;
 }
 img{
@@ -62,6 +62,8 @@ a:hover{
     --floating-icon-size: 26;
     --floating-icon-top: 0;
     --floating-icon-left: 0;
+
+    --main-page-font-size-mobile: 22px;
 }
 li{
     list-style: none;

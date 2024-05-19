@@ -18,7 +18,7 @@
       >
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse navbar-collapse-container" id="navbarNav">
+      <div class="collapse navbar-collapse justify-content-end navbar-collapse-container" id="navbarNav">
         <ul class="navbar-nav">
           <li class="nav-item active">
             <a class="nav-link" href="#"
@@ -47,7 +47,7 @@
     </nav>
   </header>
   <main>
-    <div class="get-started-container">
+    <section class="get-started-container">
       <div class="get-started-text">
         <div class="get-started-text__main-text">
           <h1>
@@ -73,7 +73,39 @@
           <img src="{% static 'manager_app/img/main-page-get-started-image.svg' %}" alt="">
         </div>
       </div>
-    </div>
+    </section>
+    <section class="section-brands-container">
+      <div class="brands-slider">
+        <div class="brand-logo-container">
+          <img src="{% static 'manager_app/img/brands-h-m.svg' %}" alt="" class="brand-logo">
+        </div>
+        <div class="brand-logo-container">
+          <img src="{% static 'manager_app/img/brands-obey.svg' %}" alt="" class="brand-logo">
+        </div>
+        <div class="brand-logo-container">
+          <img src="{% static 'manager_app/img/brands-shopify.svg' %}" alt="" class="brand-logo">
+        </div>
+        <div class="brand-logo-container">
+          <img src="{% static 'manager_app/img/brands-lacoste.svg' %}" alt="" class="brand-logo">
+        </div>
+        <div class="brand-logo-container">
+          <img src="{% static 'manager_app/img/brands-levis.svg' %}" alt="" class="brand-logo">
+        </div>
+        <div class="brand-logo-container">
+          <img src="{% static 'manager_app/img/brands-amazon.svg' %}" alt="" class="brand-logo">
+        </div>
+      </div>
+    </section>
   </main>
 </div>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const container = document.querySelector('.brands-slider');
+    const items = Array.from(container.children);
+    items.forEach(item => {
+      const clone = item.cloneNode(true);
+      container.appendChild(clone);
+    });
+  });
+</script>
 {% endblock wrapper %}

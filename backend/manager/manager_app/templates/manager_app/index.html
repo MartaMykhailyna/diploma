@@ -1,4 +1,6 @@
-{% extends "manager_app/layout.html" %} {% block wrapper %}
+{% extends "manager_app/layout.html" %}
+{% load static %}
+ {% block wrapper %}
 <div class="main-wrapper">
   <header>
     <nav class="navbar navbar-expand-lg navbar-light">
@@ -14,7 +16,6 @@
         aria-expanded="false"
         aria-label="Toggle navigation"
       >
-      
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse navbar-collapse-container" id="navbarNav">
@@ -35,11 +36,11 @@
           </li>
         </ul>
         <div class="header__btn-container " style="border: 2px solid a">
-          <div class="header__btn-login-container header__btn nav-link">
-            <a class="" href="#">Log in</a>
-          </div>
-          <a class="header__btn-singup-container header__btn nav-link">
-            <p class="" href="#">Sing Up</a>
+          <a href="#" class="header__btn-login-container header__btn nav-link">
+            <div class=""><span>Log in</span></div>
+          </a>
+          <a href="#" class="header__btn-singup-container header__btn nav-link">
+            <div class=""><span>Sing Up</span></div>
           </a>
         </div>
       </div>
@@ -49,14 +50,29 @@
     <div class="get-started-container">
       <div class="get-started-text">
         <div class="get-started-text__main-text">
-          <p>let's explore unique clothes.</p>
+          <h1>
+            <span class="get-started-text__main-text-first-word">
+              <span>let's</span>
+            </span>
+            explore 
+            <span class="get-started-text__main-text-first-word get-started-text__main-text-third-word">
+              <span>unique</span>
+            </span>
+            clothes.
+          </h1>
         </div>
-        <p>live for influential and innovative fashion!</p>
-        <div class="get-started__btn">
-          
+        <p>Live for influential and innovative fashion!</p>
+        <a href="#" class="get-started__btn-container">
+          <div class="get-started__btn">
+            <span>Shop now</span>
+          </div>
+        </a>
+      </div>
+      <div class="get-started-artwork">
+        <div class="get-started-artwork__image-container">
+          <img src="{% static 'manager_app/img/main-page-get-started-image.svg' %}" alt="">
         </div>
       </div>
-      <div class="get-started-artwork"></div>
     </div>
   </main>
 </div>

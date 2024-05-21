@@ -67,3 +67,66 @@ modal from
       });
   });
 </script>
+
+
+
+
+        <div class="brand-logo-container">
+          <img src="{% static 'manager_app/img/brands-h-m.svg' %}" alt="" class="brand-logo">
+        </div>
+        <div class="brand-logo-container">
+          <img src="{% static 'manager_app/img/brands-obey.svg' %}" alt="" class="brand-logo">
+        </div>
+        <div class="brand-logo-container">
+          <img src="{% static 'manager_app/img/brands-shopify.svg' %}" alt="" class="brand-logo">
+        </div>
+        <div class="brand-logo-container">
+          <img src="{% static 'manager_app/img/brands-lacoste.svg' %}" alt="" class="brand-logo">
+        </div>
+        <div class="brand-logo-container">
+          <img src="{% static 'manager_app/img/brands-levis.svg' %}" alt="" class="brand-logo">
+        </div>
+        <div class="brand-logo-container">
+          <img src="{% static 'manager_app/img/brands-amazon.svg' %}" alt="" class="brand-logo">
+        </div>
+
+
+          <section class="new-arrivals-container">
+      <div class="name-of-section-container new-arrivals__name-of-section-container">
+        <h2 class="name-of-section new-arrivals__name-of-section">
+          new arrivals
+        </h2>
+        <div class="new-arrivals__leaf"></div>
+      </div>
+      <div class="new-arrivals__cards-container">
+        <div class="new-arrivals__card">
+          <div class="new-arrivals__card-img-container">
+            <img src="{% static 'manager_app/img/' %}" alt="">
+          </div>
+          <div class="new-arrivals__card-description">
+            <p></p>
+            <i class="fa-solid fa-arrow-right-long"></i>
+          </div>
+        </div>
+        <div class="new-arrivals__card">
+          <div class="new-arrivals__card-img-container">
+            <img src="{% static 'manager_app/img/' %}" alt="">
+          </div>
+          <div class="new-arrivals__card-description">
+            <p></p>
+            <i class="fa-solid fa-arrow-right-long"></i>
+          </div>
+        </div>
+        <div class="new-arrivals__card">
+          <div class="new-arrivals__card-img-container">
+            <img src="{% static 'manager_app/img/' %}" alt="">
+          </div>
+          <div class="new-arrivals__card-description">
+            <p></p>
+            <i class="fa-solid fa-arrow-right-long"></i>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>

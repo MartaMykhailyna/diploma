@@ -93,6 +93,7 @@ li{
 }
 main{
     width: 100%;
+    overflow: hidden;
 }
 .table-container{
     /* border: 1px solid black; */

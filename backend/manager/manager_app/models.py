@@ -1,14 +1,17 @@
 from django.db import models
 from enum import Enum
+from datetime import datetime
+from django.db.models import Sum
+from django.utils import timezone
 # from django.contrib.postgres.fields import ArrayField
 
 class Order_status(Enum):
-    accepted = 'Прийнято'
-    paid = 'Оплачено'
-    in_processing = 'В обробці'
-    shipped = 'Відправлено'
-    delivered = 'Доставлено'
-    paid_to_dropper = 'Оплачено поставнику'  
+    accepted = 'accepted'
+    paid = 'paid'
+    in_processing = 'in processing'
+    shipped = 'shipped'
+    delivered = 'delivered'
+    paid_to_dropper = 'paid to dropper'  
     
 class User_role(Enum):
     administartor = 'administartor'
@@ -64,11 +67,45 @@ class Orders(models.Model):
     o_comment=models.CharField(max_length=100, null=True)
     o_status = models.CharField(max_length=45, default=Order_status.accepted.value, choices=[(status.value, status.name) for status in Order_status])    
     o_user = models.ForeignKey(Users, on_delete=models.CASCADE, null = True, db_column='o_user')
-    
+    o_date_created = models.DateTimeField(default=timezone.now)
     class Meta:
         db_table = 'orders'
-       
-       
+
+    @classmethod
+    def calculate_total_sum(cls):
+        return cls.objects.aggregate(total_sum=models.Sum('o_sum'))['total_sum'] or 0
+
+    @classmethod
+    def calculate_average_sum(cls):
+        total_sum = cls.calculate_total_sum()
+        total_orders = cls.objects.count()
+        return total_sum / total_orders if total_orders != 0 else 0
+
+    @classmethod
+    def find_max_sum(cls):
+        return cls.objects.aggregate(max_sum=models.Max('o_sum'))['max_sum'] or 0
+
+    @classmethod
+    def find_min_sum(cls):
+        return cls.objects.aggregate(min_sum=models.Min('o_sum'))['min_sum'] or 0
+
+    @classmethod
+    def calculate_total_sum_for_current_month(cls):
+        # Get the current year and month
+        current_year = timezone.now().year
+        current_month = timezone.now().month
+
+        # Filter orders for the current month
+        orders_for_current_month = cls.objects.filter(
+            o_date_created__year=current_year,
+            o_date_created__month=current_month
+        )
+
+        # Calculate the total sum for the current month
+        total_sum_for_current_month = orders_for_current_month.aggregate(total_sum=Sum('o_sum'))['total_sum']
+
+        return total_sum_for_current_month or 0  # Return 0 if no orders found for the current month       
+
 class Reservations(models.Model):
     id_reservation = models.AutoField(primary_key=True)
     r_shoes = models.ForeignKey(Shoes, on_delete=models.CASCADE, db_column='r_shoes')

@@ -1,10 +1,15 @@
 from django.urls import path, include
 from . import views
 
+app_name = 'manager_edit'
+
 urlpatterns = [
     # path('', views.index, name='index'),
-    path('admins_edit/', views.admins_edit, name='admins_edit'),
-    # path('items/', views.items, name='items'),
+    path('update_item/<int:shoes_id>/', views.update_item, name='update-item'),
+    path('users/update_user/<int:user_id>/', views.update_user, name='update-user'),
+    path('orders/update_order/<int:order_id>/', views.update_order, name='update-order'),
+    path('reservations/update_reservation/<int:reservation_id>/', views.update_reservation, name='update-reservation'),
+
     # path('orders/', views.orders, name='orders'),
     # path('reservations/', views.reservations, name='reservations'),
     # path('users/', views.users, name='users'),

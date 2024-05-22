@@ -1,5 +1,27 @@
 {% extends "manager_app/layout.html" %}
 {% block title %}Analytics{% endblock %}
 {% block content %}
+<div class="analytics-page-wrapper">
+    <div class="order-sum-container  analytics-column-container">
+        <p class="analytics-container__name-of-column">Загальна сума</p>
+        <p class="analytics-container__calculation">{{ total_sum }}</p>
+    </div>
+    <div class="order-sum-avarage-container  analytics-column-container">
+        <p class="analytics-container__name-of-column">Середня сума</p>
+        <p class="analytics-container__calculation">{{ average_sum }}</p>
+    </div>
+    <div class="order-sum-max-container  analytics-column-container">
+        <p class="analytics-container__name-of-column">Максимальна сума</p>
+        <p class="analytics-container__calculation">{{ max_sum }}</p>
+    </div>
+    <div class="order-sum-min-container  analytics-column-container">
+        <p class="analytics-container__name-of-column">Мінімальна сума</p>
+        <p class="analytics-container__calculation">{{ min_sum }}</p>
+    </div>
+    <div class="order-sum-for-month-container  analytics-column-container">
+        <p class="analytics-container__name-of-column">Загальна сума протягом місяця</p>
+        <p class="analytics-container__calculation">{{ total_sum_for_current_month }}</p>
+    </div>
+</div>
 
 {% endblock %}

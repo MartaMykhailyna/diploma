@@ -27,7 +27,7 @@
                 <a 
                 href="#" 
                 class="open-modal" 
-                data-action="{% url 'orders-detail' item.o_shoes.id_shoes %}"
+                data-action="{% url 'manager_app:orders-detail' item.o_shoes.id_shoes %}"
                 data-id="{{ item.id_order }}" 
                 data-name="{{ item.o_shoes.sh_name }}" 
                 data-model="{{ item.o_shoes.sh_model }}" 
@@ -53,29 +53,29 @@
             <td>{{ item.o_comment }}</td>
             <td>
                 {% if item.o_status == 'accepted' %}
-                    <div class=""><span>Прийнято</span></div>
+                    <div><span>Прийнято</span></div>
                 {% elif item.o_status == 'paid' %}
-                    <div class=""><span>Оплачено</span></div>
-                {% elif item.o_status == 'in_processing' %}
-                    <div class=""><span>В обробці</span></div>
+                    <div><span>Оплачено</span></div>
+                {% elif item.o_status == 'in processing' %}
+                    <div><span>В обробці</span></div>
                 {% elif item.o_status == 'shipped' %}
-                    <div class=""><span>Відправлено</span></div>
+                    <div><span>Відправлено</span></div>
                 {% elif item.o_status == 'delivered' %}
-                    <div class=""><span>Доставлено</span></div>
-                {% else %}
-                    <div class=""><span>Оплачено поставнику</span></div>
+                    <div><span>Доставлено</span></div>
+                {% elif item.o_status == 'paid to dropper' %}
+                    <div><span>Оплачено поставнику</span></div>
                 {% endif %}
             </td>
             <td class="table-controls" style="min-width: 30px">
                 <!-- <button onclick="openModalForm(event);return false;" class="btn-edit"><i class="fa-regular fa-pen-to-square"></i></button> -->
                 <!-- <button class="btn-edit"><i class="fa-regular fa-pen-to-square"></i></button> -->
                 <div class="btn-edit">
-                    <a href="{% url 'update-order' item.id_order %}">
+                    <a href="{% url 'manager_edit:update-order' item.id_order %}">
                       <i class="fa-regular fa-pen-to-square"></i>
                     </a>
                   </div>
                 <button class="btn-delete">
-                    <form action="{% url 'orders-delete' item.id_order %}" method="post">
+                    <form action="{% url 'manager_app:orders-delete' item.id_order %}" method="post">
                         {% csrf_token %}
                         <button type="submit" style="background:none; border:none; padding:0; margin:0;">
                             <i class="fa-solid fa-trash-can"></i>
@@ -102,14 +102,10 @@
 <div id="modal" class="mw-container-item-detail">
   <div class="mw-item-detail-content">
       <span class="close" onclick="closeModal()">&times;</span>
-      <!-- <div class="carousel-container">
+      <div class="carousel-container">
           <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
               <div class="carousel-inner">
-              {% for p in photos %}
-              <div class="carousel-item {% if forloop.first %}active{% endif %}">
-                  <img src="{{ p.images.url }}" alt="" width="300px" height="300px">
-              </div>
-              {% endfor %}
+                <img src="{{ item.o_shoes.sh_image.url }}" alt="">
               </div>
               <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
               <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -120,15 +116,15 @@
               <span class="sr-only">Next</span>
               </a>
           </div>
-      </div> -->
+      </div>
       <div class="mw-di-second-column-container">
           <h1>{{ item.o_shoes.sh_name }}</h1>
           <p>ID: {{ item.id_order }}</p>
-          <p>Модель: {{ item.shoes.sh_model }}</p>
-          <p>Розмір {{ item.shoes.sh_size }}</p>
-          <p>Колір: {{ item.shoes.sh_color }}</p>
-          <p>Кількість: {{ item.shoes.sh_count }}</p>
-          <p>Виробник: {{ item.shoes.sh_manufacturer }}</p>
+          <p>Модель: {{ item.o_shoes.sh_model }}</p>
+          <p>Розмір {{ item.o_shoes.sh_size }}</p>
+          <p>Колір: {{ item.o_shoes.sh_color }}</p>
+          <p>Кількість: {{ item.o_shoes.sh_count }}</p>
+          <p>Виробник: {{ item.o_shoes.sh_manufacturer }}</p>
           <p>Сума: £{{ item.order_sum }}</p>
           <p>Отримувач: {{ item.o_recipient }}</p>
           <p>Адреса: {{ item.o_address }}</p>

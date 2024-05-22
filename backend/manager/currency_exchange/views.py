@@ -3,7 +3,7 @@ import requests
 from django.http import JsonResponse
 
 def convert_currency(request, currency):
-    base_carrency = 'GBP'
+    base_carrency = 'UAH'
     api_key = os.environ.get('66ea1e8ebc2c2ed41107f072')
     
     # url = f'https://v6.exchangerate-api.com/v6/{api_key}/latest/{base_carrency}'

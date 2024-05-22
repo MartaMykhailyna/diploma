@@ -5,9 +5,9 @@
 <div class="dropdown-container">
   <button class="dropdown-button main-button">
     <span class="dropdown-title-icon">
-      <i class="fa-solid fa-sterling-sign"></i>
+      <i class="fa-solid fa-hryvnia-sign"></i>
     </span>
-    <span class="dropdown-title text-truncate">GBP</span>
+    <span class="dropdown-title text-truncate">UAH</span>
     <span class="dropdown-arrow" style="display: flex; justify-content: center; align-items: center;">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="-3 -3 20 20">
         <path
@@ -60,16 +60,16 @@
     <td>{{ item.sh_count }}</td>
     <td>{{ item.sh_manufacturer }}</td>
     <!-- <td>{{ item.sh_price }}</td> -->
-    <td> <span class="product-price" data-base-price="{{ item.sh_price }}">£{{item.sh_price}}</span> </td>
+    <td> <span class="product-price" data-base-price="{{ item.sh_price }}"><i class="fa-solid fa-hryvnia-sign"></i>{{item.sh_price}}</span> </td>
     <td class="table-controls" style="min-width: 30px">
       <!-- <button class="btn-edit" id="openEditModal"><i class="fa-regular fa-pen-to-square"></i></button> -->
       <div class="btn-edit">
-        <a href="{% url 'update-item' item.id_shoes %}">
+        <a href="{% url 'manager_edit:update-item' item.id_shoes %}">
           <i class="fa-regular fa-pen-to-square"></i>
         </a>
       </div>
       <button class="btn-delete">
-        <form action="{% url 'items-delete' item.id_shoes %}" method="post">
+        <form action="{% url 'manager_app:items-delete' item.id_shoes %}" method="post">
             {% csrf_token %}
             <button type="submit" style="background:none; border:none; padding:0; margin:0;">
                 <i class="fa-solid fa-trash-can"></i>

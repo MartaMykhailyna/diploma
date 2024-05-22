@@ -35,12 +35,12 @@
                     <!-- <button onclick="openModalForm(event);return false;" class="btn-edit"><i class="fa-regular fa-pen-to-square"></i></button> -->
                     <!-- <button class="btn-edit"><i class="fa-regular fa-pen-to-square"></i></button> -->
                     <div class="btn-edit">
-                        <a href="{% url 'update-user' item.id_user %}">
+                        <a href="{% url 'manager_edit:update-user' item.id_user %}">
                           <i class="fa-regular fa-pen-to-square"></i>
                         </a>
                       </div>
                     <button class="btn-delete">
-                        <form action="{% url 'users-delete' item.id_user %}" method="post">
+                        <form action="{% url 'manager_app:users-delete' item.id_user %}" method="post">
                             {% csrf_token %}
                             <button type="submit" style="background:none; border:none; padding:0; margin:0;">
                                 <i class="fa-solid fa-trash-can"></i>
@@ -48,7 +48,7 @@
                         </form>
                     </button>
                     <button class="btn-confirm">
-                        <form action="{% url 'users_toggle_status' item.id_user %}" method="post">
+                        <form action="{% url 'manager_app:users_toggle_status' item.id_user %}" method="post">
                             {% csrf_token %}
                             <button type="submit" style="background: none; border: none;">
                                 <i class="fa-regular fa-circle-check"></i>

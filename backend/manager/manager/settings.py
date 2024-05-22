@@ -38,7 +38,9 @@ INSTALLED_APPS = [
     'currency_exchange',
     'manager_edit',
     'manager_login',
+    'manager_welcome',
     'livereload',
+    'django_rename_app',
 ]
 
 MIDDLEWARE = [
@@ -111,7 +113,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Kiev'
 
 USE_I18N = True
 

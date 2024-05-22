@@ -116,14 +116,14 @@ def o_process_quantity(message, shoes, user):
             bot.register_next_step_handler(message, o_process_quantity, shoes, user)
             return
         bot.send_message(message.chat.id, "Введіть отримувача (ім'я та прізвище):")
-        bot.register_next_step_handler(message, o_process_quantity, shoes, user, quantity)
+        bot.register_next_step_handler(message, o_process_recipient, shoes, user, quantity)
     except ValueError:
         bot.send_message(message.chat.id, "Некоректне значення кількості. Введіть ціле число більше нуля:")
         bot.register_next_step_handler(message, o_process_quantity, shoes, user)
     except Exception as e:
         bot.send_message(message.chat.id, f"Під час обробки кількості виникла помилка: {e}")
 
-def process_recipient(message, shoes, user, quantity):
+def o_process_recipient(message, shoes, user, quantity):
     recipient = message.text
     bot.send_message(message.chat.id, "Вкажіть адресу доставки:")
     bot.register_next_step_handler(message, process_address, shoes, user, quantity, recipient)
@@ -149,6 +149,7 @@ def process_comment(message, shoes, user, quantity, recipient, address):
     except Exception as e:
         bot.send_message(message.chat.id, f"Під час створення замовлення виникла помилка: {e}")
         print({e})
+
 
 
 @bot.message_handler(commands=['create_reservation'])
@@ -215,7 +216,24 @@ def process_quantity(message, shoes, user, user_chat_id):
         bot.send_message(user_chat_id, "Некоректне значення кількості. Введіть ціле додатнє число.")
 
 
-
-
+@bot.message_handler(commands=['getId'])
+def send_user_info(message):
+    chat_id = message.chat.id
+    user_id = message.from_user.id
+    user_info = message.from_user
+    
+    # Formatting the user information
+    user_details = (
+        f"Chat ID: {chat_id}\n"
+        f"User ID: {user_id}\n"
+        f"First Name: {user_info.first_name}\n"
+        f"Last Name: {user_info.last_name}\n"
+        f"Username: @{user_info.username}\n"
+        f"Language Code: {user_info.language_code}\n"
+        f"Is Bot: {user_info.is_bot}\n"
+        f"User's Full Info: {user_info}"
+    )
+    
+    bot.send_message(chat_id, user_details)
 
 bot.infinity_polling()

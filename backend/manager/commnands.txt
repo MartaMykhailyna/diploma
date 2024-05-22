@@ -5,6 +5,7 @@ pipenv run py manage.py migrate
 pipenv run py echo_bot.py
 
 pipenv run py manage.py runserver
+pipenv run py manage.py livereload
 
 modal from
 
@@ -130,3 +131,75 @@ modal from
     </section>
   </main>
 </div>
+
+
+
+
+
+        <div class="new-arrivals__card">
+          <div class="new-arrivals__card-img-container">
+            <img src="{% static 'manager_app/img/new-arrival-nike-air-max.webp' %}" alt="">
+          </div>
+          <div class="new-arrivals__card-description">
+            <p>trainers</p>
+            <i class="fa-solid fa-arrow-right-long"></i>
+          </div>
+        </div>
+        <div class="new-arrivals__card">
+          <div class="new-arrivals__card-img-container">
+            <img src="{% static 'manager_app/img/new-arrival-tan-brown.webp' %}" alt="">
+          </div>
+          <div class="new-arrivals__card-description">
+            <p>sandalas</p>
+            <i class="fa-solid fa-arrow-right-long"></i>
+          </div>
+        </div>
+        <div class="new-arrivals__card">
+          <div class="new-arrivals__card-img-container">
+            <img src="{% static 'manager_app/img/new-arrival-white-slip.webp' %}" alt="">
+          </div>
+          <div class="new-arrivals__card-description">
+            <p>trainers?</p>
+            <i class="fa-solid fa-arrow-right-long"></i>
+          </div>
+        </div>
+
+
+
+         <swiper-container class="mySwiper"  space-beetwen="30" autoplay="true" loop="true">
+          <div class="swiper">
+          <swiper-slide class="new-arrivals__card">
+            <div class="new-arrivals__card">
+              <div class="new-arrivals__card-img-container">
+                <img src="{% static 'manager_app/img/new-arrival-nike-air-max.webp' %}" alt="">
+              </div>
+              <div class="new-arrivals__card-description">
+                <p>trainers</p>
+                <i class="fa-solid fa-arrow-right-long"></i>
+              </div>
+            </div>
+          </swiper-slide>
+          <swiper-slide class="new-arrivals__card">
+            <div class="new-arrivals__card">
+              <div class="new-arrivals__card-img-container">
+                <img src="{% static 'manager_app/img/new-arrival-tan-brown.webp' %}" alt="">
+              </div>
+              <div class="new-arrivals__card-description">
+                <p>sandalas</p>
+                <i class="fa-solid fa-arrow-right-long"></i>
+              </div>
+            </div>
+          </swiper-slide>
+          <swiper-slide class="new-arrivals__card">
+            <div class="new-arrivals__card">
+              <div class="new-arrivals__card-img-container">
+                <img src="{% static 'manager_app/img/new-arrival-white-slip.webp' %}" alt="">
+              </div>
+              <div class="new-arrivals__card-description">
+                <p>trainers?</p>
+                <i class="fa-solid fa-arrow-right-long"></i>
+              </div>
+            </div>
+          </swiper-slide>
+        </div>
+      </swiper-container>

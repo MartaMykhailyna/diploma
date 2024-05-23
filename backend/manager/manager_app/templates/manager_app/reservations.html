@@ -1,6 +1,8 @@
 {% extends "manager_app/tables.html" %}
 {% block title %}Reservations{% endblock %}
 {% block table %}
+<a href="{% url 'manager_add:add-reservation' %}" class="btn-add-container">+ add item</a>
+
     <thead>
         <tr>
             <th>ID</th>

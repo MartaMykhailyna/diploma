@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'manager_app',
     'currency_exchange',
     'manager_edit',
+    'manager_add',
     'manager_login',
     'manager_welcome',
     'livereload',
@@ -138,3 +139,13 @@ STATICFILES_DIRS = [
 # Uploaded media by user
 MEDIA_ROOT = os.path.join(BASE_DIR,"media")
 MEDIA_URL = '/media/'
+
+
+# Email
+
+EMAIL_HOST_PASSWORD = 'aymk ckym llew kgyw'
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'martamykhailyna608@gmail.com'

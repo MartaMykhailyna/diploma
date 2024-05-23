@@ -1,27 +1,125 @@
 {% extends "manager_app/layout.html" %}
 {% block title %}Analytics{% endblock %}
 {% block content %}
+<div class="dropdown-container">
+    <button class="dropdown-button main-button">
+      <span class="dropdown-title-icon">
+        <i class="fa-solid fa-hryvnia-sign"></i>
+      </span>
+      <span class="dropdown-title text-truncate">UAH</span>
+      <span class="dropdown-arrow" style="display: flex; justify-content: center; align-items: center;">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="-3 -3 20 20">
+          <path
+            d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
+        </svg>
+      </span>
+    </button>
+    <div class="dropdown-list-container">
+      <div class="dropdown-list-wrapper">
+        <ul class="dropdown-list"></ul>
+        <!-- <div class="floating-icon" aria-hidden="true"></div> -->
+      </div>
+    </div>
+  </div>
+<script src="https://d3js.org/d3.v6.min.js"></script>
+<div class="analytics-wrapper">
 <div class="analytics-page-wrapper">
     <div class="order-sum-container  analytics-column-container">
         <p class="analytics-container__name-of-column">Загальна сума</p>
-        <p class="analytics-container__calculation">{{ total_sum }}</p>
+        <p class="analytics-container__calculation">
+            <span class="product-price" data-base-price="{{ total_sum }}">
+                <i class="fa-solid fa-hryvnia-sign"></i>{{ total_sum }}</span>
+        </p>
     </div>
     <div class="order-sum-avarage-container  analytics-column-container">
         <p class="analytics-container__name-of-column">Середня сума</p>
-        <p class="analytics-container__calculation">{{ average_sum }}</p>
+        <p class="analytics-container__calculation">
+            <span class="product-price" data-base-price="{{ average_sum }}">
+                <i class="fa-solid fa-hryvnia-sign"></i>{{ average_sum }}</span>
+        </p>
     </div>
     <div class="order-sum-max-container  analytics-column-container">
         <p class="analytics-container__name-of-column">Максимальна сума</p>
-        <p class="analytics-container__calculation">{{ max_sum }}</p>
+        <p class="analytics-container__calculation">
+            <span class="product-price" data-base-price="{{ max_sum }}">
+                <i class="fa-solid fa-hryvnia-sign"></i>{{ max_sum }}</span>
+        </p>
     </div>
     <div class="order-sum-min-container  analytics-column-container">
         <p class="analytics-container__name-of-column">Мінімальна сума</p>
-        <p class="analytics-container__calculation">{{ min_sum }}</p>
+        <p class="analytics-container__calculation">
+            <span class="product-price" data-base-price="{{ min_sum }}">
+                <i class="fa-solid fa-hryvnia-sign"></i>{{ min_sum }}</span>
+        </p>
     </div>
     <div class="order-sum-for-month-container  analytics-column-container">
         <p class="analytics-container__name-of-column">Загальна сума протягом місяця</p>
-        <p class="analytics-container__calculation">{{ total_sum_for_current_month }}</p>
+        <p class="analytics-container__calculation">
+            <span class="product-price" data-base-price="{{ total_sum_for_current_month }}">
+                <i class="fa-solid fa-hryvnia-sign"></i>{{ total_sum_for_current_month }}</span>
+        </p>
     </div>
 </div>
+<div id="chart"></div>
+</div>
 
+<script type="module">
+    import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm";
+    // Fetch the data from the Django view
+    fetch('/api/order_sums_by_month/')
+            .then(response => response.json())
+            .then(data => {
+                // Parse the data
+                const parsedData = data.map(d => ({
+                    date: new Date(d.month),
+                    value: d.total_sum
+                }));
+
+                // Define chart dimensions
+                const width = document.getElementById('chart-container').clientWidth;
+                const height = 400;
+                const marginTop = 20;
+                const marginRight = 20;
+                const marginBottom = 30;
+                const marginLeft = 40;
+
+                // Define the x (horizontal position) scale
+                const x = d3.scaleUtc()
+                    .domain(d3.extent(parsedData, d => d.date))
+                    .range([marginLeft, width - marginRight]);
+
+                // Define the y (vertical position) scale
+                const y = d3.scaleLinear()
+                    .domain([0, d3.max(parsedData, d => d.value)])
+                    .nice()
+                    .range([height - marginBottom, marginTop]);
+
+                // Create the SVG container
+                const svg = d3.select("#chart")
+                    .append("svg")
+                    .attr("width", width)
+                    .attr("height", height);
+
+                // Add the x-axis
+                svg.append("g")
+                    .attr("transform", `translate(0,${height - marginBottom})`)
+                    .call(d3.axisBottom(x));
+
+                // Add the y-axis
+                svg.append("g")
+                    .attr("transform", `translate(${marginLeft},0)`)
+                    .call(d3.axisLeft(y));
+
+                // Add the line path
+                svg.append("path")
+                    .datum(parsedData)
+                    .attr("fill", "none")
+                    .attr("stroke", "steelblue")
+                    .attr("stroke-width", 1.5)
+                    .attr("d", d3.line()
+                        .x(d => x(d.date))
+                        .y(d => y(d.value))
+                    );
+            });
+</script>
 {% endblock %}

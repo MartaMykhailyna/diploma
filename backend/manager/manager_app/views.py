@@ -4,7 +4,7 @@ from manager_app.models import *
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.contrib import messages
-from datetime import datetime
+from datetime import datetime,timedelta
 
 def items(request):
     data = Shoes.objects.all()
@@ -30,30 +30,6 @@ def items_delete(request, shoes_id):
         return redirect('manager_app:items')
 
     return redirect('manager_app:items')
-
-# def items_form_edit(request, id):
-#     item = get_object_or_404(Shoes, id_shoes=id)
-#     photos = ShoesImages.objects.filter(item=item)
-#     # Either render only the modal content, or a full standalone page
-#     if request.headers.get('x-requested-with') == 'XMLHttpRequest':
-#         template_name = 'manager_app/items.html'
-#         if request.method == 'POST':
-#             item.sh_name = request.POST.get('sh_name')
-#             item.sh_model = request.POST.get('sh_model')
-#             item.sh_size_array = request.POST.get('sh_size_array')
-#             item.sh_color = request.POST.get('sh_color')
-#             item.sh_manufacturer = request.POST.get('sh_manufacturer')
-#             item.sh_count = request.POST.get('sh_count')
-#             item.sh_price = request.POST.get('sh_price')
-#             item.sh_image = request.POST.get('sh_image')
-#             item.save()
-#             return redirect('items')
-#     else:
-#         template_name = 'manager_app/items.html'
-#     return render(request, template_name, {
-#         'item':item,
-#         'photos':photos
-#     })
 
 def users(request):
     # return render(request, 'users.html')
@@ -117,6 +93,9 @@ def orders_delete(request, order_id):
 
 def reservations(request):
     # return render(request, 'orders.html')
+    now = timezone.now()
+    Reservations.objects.filter(r_end_date__lt=now).delete()
+
     data = Reservations.objects.all()
     return render(request, 'manager_app/reservations.html', {'data': data})
 

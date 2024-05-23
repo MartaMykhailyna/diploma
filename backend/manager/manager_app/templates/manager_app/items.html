@@ -22,6 +22,7 @@
     </div>
   </div>
 </div>
+<a href="{% url 'manager_add:add-item' %}" class="btn-add-container">+ add item</a>
 <thead>
   <tr>
     <th><input type="checkbox" name="headerCheckbox" id="headerCheckbox"></th>
@@ -47,7 +48,7 @@
     </td>
     <!-- <td><a onclick="openModal() ">{{ item.sh_name }}</a></td> -->
     <td>
-      <a href="#" class="open-modal" data-action="{% url 'items-photos' item.id_shoes %}" data-id="{{ item.id_shoes }}"
+      <a href="#" class="open-modal" data-action="{% url 'manager_app:items-photos' item.id_shoes %}" data-id="{{ item.id_shoes }}"
         data-name="{{ item.sh_name }}" data-model="{{ item.sh_model }}" data-size="{{ item.sh_size }}"
         data-color="{{ item.sh_color }}" data-count="{{ item.sh_count }}" data-manufacturer="{{ item.sh_manufacturer }}"
         data-price="{{ item.sh_price }}" onclick="openModal(event); return false;">{{ item.sh_name }}
@@ -91,7 +92,7 @@
 <div id="modal" class="mw-container-item-detail">
   <div class="mw-item-detail-content">
     <!-- <span class="close" onclick="closeModal()">&times;</span> -->
-    <a class="close" href="{% url 'items' %}">&times;</a>
+    <a class="close" href="{% url 'manager_app:items' %}">&times;</a>
     <div class="carousel-container">
       <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
         <div class="carousel-inner">

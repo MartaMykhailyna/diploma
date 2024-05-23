@@ -21,7 +21,7 @@ def update_item(request, shoes_id):
         if sh_image:
             item.sh_image = sh_image
         item.save()
-        return redirect('items')
+        return redirect('manager_app:items')
     else:
         return render(request, 'manager_edit/items-edit.html', {'item': item})
 
@@ -38,7 +38,7 @@ def update_user(request, user_id):
         user.u_status = request.POST.get('u_status') == True
         user.u_role = request.POST.get('u_role')
         user.save()
-        return redirect('users')
+        return redirect('manager_app:users')
     else:
         user_roles = [(role.value, role.name) for role in User_role]
         return render(request, 'manager_edit/users-edit.html', {'user': user, 'user_roles': user_roles})
@@ -80,7 +80,7 @@ def update_order(request, order_id):
                     order.o_address = o_address
                     order.o_comment = o_comment
                     order.save()
-                    return redirect('orders')
+                    return redirect('manager_app:orders')
                 else:
                     error_message = "Неправильний статус замовлення"
                     messages.error(request, error_message) 
@@ -121,7 +121,7 @@ def update_reservation(request, reservation_id):
                 reservation.r_shoes = shoes
                 reservation.r_count = r_count
                 reservation.save()
-                return redirect('reservations')
+                return redirect('manager_app:reservations')
             else:
                 error_message = "Вибрана кількість перевищує кількість в наявності"
                 return render(request, 'manager_edit/reservations-edit.html', {'reservation': reservation, 'shoes_list': shoes_list, 'error_message': error_message})

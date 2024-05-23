@@ -1,6 +1,6 @@
 from django.db import models
 from enum import Enum
-from datetime import datetime
+from datetime import datetime, timedelta
 from django.db.models import Sum
 from django.utils import timezone
 # from django.contrib.postgres.fields import ArrayField
@@ -110,10 +110,10 @@ class Reservations(models.Model):
     id_reservation = models.AutoField(primary_key=True)
     r_shoes = models.ForeignKey(Shoes, on_delete=models.CASCADE, db_column='r_shoes')
     r_count = models.IntegerField(null=False, default=1)
-    r_start_date = models.DateTimeField(auto_now_add=True)
-    r_end_date = models.DateTimeField()
+    r_start_date = models.DateTimeField(default=timezone.now)
+    r_end_date = models.DateTimeField(default=timezone.now() + timedelta(hours=3))
     r_user = models.ForeignKey(Users, on_delete=models.CASCADE, db_column='r_user')
-    
+
     class Meta:
         db_table = 'reservations'
         

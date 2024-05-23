@@ -39,9 +39,6 @@
           <a href="{% url 'manager_login:login' %}" class="header__btn-login-container header__btn nav-link">
             <div class=""><span>Log in</span></div>
           </a>
-          <a href="#" class="header__btn-singup-container header__btn nav-link">
-            <div class=""><span>Sing Up</span></div>
-          </a>
         </div>
       </div>
     </nav>
@@ -62,7 +59,7 @@
           </h1>
         </div>
         <p>Live for influential and innovative fashion!</p>
-        <a href="#" class="get-started__btn-container">
+        <a href="#contact-us-container" class="get-started__btn-container">
           <div class="get-started__btn">
             <span>Shop now</span>
           </div>
@@ -161,12 +158,13 @@
       </div>
     </div>
     </section>
-    <section class="contact-us-container">
+    <section id="contact-us-container" class="contact-us-container">
       <div class="contact-us__main-text-container">
         <h3>Запрошуємо до співпраці</h3>
         <p>Надсилай свою електронну адресу і ми розповімо деталі</p>
-        <form action="" method="post" class="contact-us__input-container">
-            <input type="email" placeholder="Email" name="contact-us" id="contact-us-field">
+        <form action="{% url 'send-email' %}" method="post" class="contact-us__input-container">
+          {% csrf_token %}
+          <input type="email" placeholder="Email" name="contact-us" id="contact-us-field">
             <input type="submit"  value="Надіслати" name="contact-us-btn" id="contact-us-btn-confirm">
         </form>
       </div>
@@ -186,6 +184,22 @@
     </div>
   </footer>
 </div>
+<script>
+  function indexOpenModal() {
+        document.getElementById('emailModal').style.display = 'block';
+    }
+
+    function indexCloseModal() {
+        document.getElementById('emailModal').style.display = 'none';
+    }
+
+    window.onclick = function(event) {
+        const modal = document.getElementById('emailModal');
+        if (event.target == modal) {
+          indexCloseModal();
+        }
+    }
+    </script>
 <script>
   
 

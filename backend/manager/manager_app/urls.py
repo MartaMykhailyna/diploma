@@ -5,6 +5,7 @@ app_name='manager_app'
 
 urlpatterns = [
     path('', views.analytics, name='analytics'),
+    # path('api/order_sums_by_month/', order_sums_by_month, name='order_sums_by_month'),
     path('items/', views.items, name='items'),
     # path('update_item/<int:shoes_id>/', views.update_item, name='update-item'),
     path('det/<int:id>/', views.items_detailed_view, name='items-photos'),

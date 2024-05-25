@@ -4,6 +4,7 @@ from manager_app.models import *
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.contrib import messages
+import plotly.express as px
 from datetime import datetime,timedelta
 
 def items(request):
@@ -142,7 +143,7 @@ def update_reservation(request, reservation_id):
         return render(request, 'manager_app/reservations-edit.html', {'reservation': reservation, 'shoes_list': shoes_list})   
    
    
-def analytics(request):
+def analytics_for_admin(request):
     total_sum = Orders.calculate_total_sum()
     average_sum = Orders.calculate_average_sum()
     max_sum = Orders.find_max_sum()
@@ -157,8 +158,19 @@ def analytics(request):
         'min_sum': min_sum,
         'total_sum_for_current_month': total_sum_for_current_month
     }
+    # orders = Orders.objects.all()
 
-    return render(request, 'manager_app/analytics.html', context)
+    # fig = px.line(
+    #     x=[order.o_date_created for order in orders], 
+    #     y=[order.o_sum for order in orders]
+    #     )
+    # chart = fig.write_html()
+    # context1 = {'chart': chart}
+
+    return render(request, 'manager_app/analytics_for_admin.html', context)
+
+def analytics_for_user(request):
+    return render(request, 'manager_app/analytics_for_user.html')
 
 # orders_with_shoes_info = Orders.objects.select_related('o_shoes').all()
 
@@ -180,3 +192,22 @@ def update_shoes_count_on_reservation_create(sender, instance, created, **kwargs
         shoes = instance.r_shoes
         shoes.sh_count -= instance.r_count
         shoes.save()
+
+
+
+# def analytics_view(request):
+#     orders = Orders.objects.all()
+
+#     fig = px.line(
+#         x=[order.o_date_created for order in orders], 
+#         y=[order.o_sum for order in orders]
+#         )
+#     chart = fig.show()
+#     context = {'chart': chart}
+#     return render(request, 'manager_app/analytics.html', context)
+
+
+# def analytics_view (request):
+#     fig = px.bar(x=["a", "b", "c"], y=[1, 3, 2])
+#     fig.show()
+#     return render(request, 'manager_app/analytics.html', {'fig': fig})

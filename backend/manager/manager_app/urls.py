@@ -4,7 +4,9 @@ from . import views
 app_name='manager_app'
 
 urlpatterns = [
-    path('', views.analytics, name='analytics'),
+    path('analytics_admin/', views.analytics_for_admin, name='analytics-for-admin'),
+    path('analytics_user/', views.analytics_for_user, name='analytics-for-user'),
+    # path('', views.analytics, name='analytics'),
     # path('api/order_sums_by_month/', order_sums_by_month, name='order_sums_by_month'),
     path('items/', views.items, name='items'),
     # path('update_item/<int:shoes_id>/', views.update_item, name='update-item'),

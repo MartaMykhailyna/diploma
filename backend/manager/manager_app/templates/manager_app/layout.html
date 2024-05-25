@@ -62,8 +62,9 @@
       <div class="menu-container">
         <nav>
           <ul>
+            {% block access %}
             <li class="menu-item">
-              <a href="{% url 'manager_app:analytics' %}">
+              <a href="{% url 'manager_app:analytics-for-admin' %}">
                 <div class="menu-icons">
                   <i class="fa-solid fa-house"></i>
                 </div>
@@ -78,6 +79,7 @@
                 <p class="menu-item-text">Користувачі</p>
               </a>
             </li>
+            {% endblock access %}
             <li class="menu-item">
               <a href="{% url 'manager_app:items' %}">
                 <div class="menu-icons">
@@ -102,14 +104,7 @@
                 <p class="menu-item-text">Бронювання</p>
               </a>
             </li>
-            <li class="menu-item">
-              <a href="{% url 'manager_app:analytics' %}">
-                <div class="menu-icons">
-                  <i class="fa-solid fa-chart-bar"></i>
-                </div>
-                <p class="menu-item-text">Аналітика</p>
-              </a>
-            </li>
+           
           </ul>
 
         </nav>

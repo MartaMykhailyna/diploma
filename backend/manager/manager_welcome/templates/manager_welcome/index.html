@@ -43,25 +43,25 @@
       </div>
     </nav>
   </header>
-  <main>
+  <main style="position: relative;">
     <section class="get-started-container">
       <div class="get-started-text">
         <div class="get-started-text__main-text">
           <h1>
             <span class="get-started-text__main-text-first-word">
-              <span>let's</span>
+              <span>давайте</span>
             </span>
-            explore 
+            досліджувати 
             <span class="get-started-text__main-text-first-word get-started-text__main-text-third-word">
-              <span>unique</span>
+              <span>унікальне</span>
             </span>
-            clothes.
+            взуття.
           </h1>
         </div>
-        <p>Live for influential and innovative fashion!</p>
+        <p>Живіть впливовою та інноваційною модою!</p>
         <a href="#contact-us-container" class="get-started__btn-container">
           <div class="get-started__btn">
-            <span>Shop now</span>
+            <span>Купити зараз</span>
           </div>
         </a>
       </div>
@@ -162,7 +162,7 @@
       <div class="contact-us__main-text-container">
         <h3>Запрошуємо до співпраці</h3>
         <p>Надсилай свою електронну адресу і ми розповімо деталі</p>
-        <form action="{% url 'send-email' %}" method="post" class="contact-us__input-container">
+        <form action="{% url 'manager_welcome:send-email' %}" method="post" class="contact-us__input-container">
           {% csrf_token %}
           <input type="email" placeholder="Email" name="contact-us" id="contact-us-field">
             <input type="submit"  value="Надіслати" name="contact-us-btn" id="contact-us-btn-confirm">

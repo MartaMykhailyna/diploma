@@ -39,18 +39,23 @@ def login(request):
         form = LoginForm()
     
     return render(request, 'manager_login/login.html', {'form': form})
-# def users_login(request):
-#     form = LoginForm(request.POST)
-#     if form.is_valid():
-#             email = form.cleaned_data['email']
-#             phone = form.cleaned_data['password']
 
-#             user = Users.objects.filter(u_email=email, u_phone=phone).first()
-#             if user:
-#                 return redirect('index')
-#             else:
-#                 messages.error(request, 'Invalid login credentials.')
-#     else:
-#         form = LoginForm()
+def register_view(request):
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        if email:
+            subject = 'Умови співпраці та реєстрація'
+            message = 'Дякуємо за ваш інтерес! Ми надішлемо вам умови співпраці та посилання на реєстрацію протягом дня.'
+            from_email = 'your-email@example.com'  # Замість цього поставте свою електронну адресу
+            recipient_list = [email]
 
-    # return render(request, 'manager_login/login.html', {'form': form})
+            try:
+                send_mail(subject, message, from_email, recipient_list)
+                messages.success(request, 'Лист було надіслано успішно.')
+            except Exception as e:
+                messages.error(request, 'Не вдалося надіслати лист. Будь ласка, спробуйте пізніше.')
+        else:
+            messages.error(request, 'Будь ласка, введіть коректну електронну пошту.')
+        return redirect('manager_login:register')
+    else:
+        return render(request, 'manager_login/register.html')

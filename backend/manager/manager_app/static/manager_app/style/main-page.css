@@ -1,9 +1,10 @@
 .main-wrapper{
     padding: 10px 20px;
     position: relative;
-    overflow: hidden;
     width: 100%;
     margin: 0 auto;
+    background-color: transparent;
+    /* overflow: hidden; */
 }
 header{
     width: 100%;
@@ -141,21 +142,33 @@ h1 span{
 /* section brands */
 
 .section-brands-container{
-    background-color: #EBD96B;
-    width: 100%;
-    width: 100vw;
+    /* background-color: #EBD96B; */
     height: 150px;
-    margin: 0 -30px;
-    padding: 0 70px;
+    /* margin: 0 -30px; */
+    /* margin: 0 auto; */
+    /* padding: 0 70px; */
     display: flex;
     justify-content: center;
     align-items: center;
     position: relative;
+    /* width: 100vw; */
+
+}
+.section-brands-container::before{
+    content: '';
+    /* width: calc(100% + 60px); */
+    width: 100vw;
+    position: absolute;
+    left: -20px;
+    right: -20px;
+    z-index: -2;
+    height: 150px;
+    background-color: #EBD96B;
 
 }
 
 .brands-slider{
-    overflow: hidden;
+    /* overflow: hidden; */
 }
 .brands-slider .owl-carousel {
     display: flex;
@@ -166,8 +179,7 @@ h1 span{
     width: 100%;
     margin: 0 auto;
     padding: 0 10px;
-    overflow: hidden;
-    border: 2px solid aqua;
+    /* overflow: hidden; */
 
   }
  

@@ -53,6 +53,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # 'django.core.mail.backends.smtp.EmailBackend'
 ]
 
 ROOT_URLCONF = 'manager.urls'
@@ -142,7 +143,7 @@ MEDIA_URL = '/media/'
 
 
 # Email
-
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST_PASSWORD = 'aymk ckym llew kgyw'
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'

@@ -151,13 +151,28 @@ def analytics_for_admin(request):
 
     current_month = datetime.now().month
     total_sum_for_current_month = Orders.calculate_total_sum_for_current_month()
+    calculate_percentage_drop = Orders.calculate_percentage_drop()
     context = {
-        'total_sum': total_sum,
-        'average_sum': average_sum,
-        'max_sum': max_sum,
-        'min_sum': min_sum,
-        'total_sum_for_current_month': total_sum_for_current_month
+        'total_sum': round(total_sum, 2),
+        'average_sum': round(average_sum,2),
+        'max_sum': round(max_sum,2),
+        'min_sum': round(min_sum,2),
+        'total_sum_for_current_month': round(total_sum_for_current_month, 2),
+        'calculate_percentage_drop': round(calculate_percentage_drop, 0),
     }
+    
+    def sales_chart(request):
+        sales_data = Orders.get_sales_data()
+        
+        # Перетворення даних у формат, придатний для графіка
+        labels = [calendar.month_name[month] for month in sales_data.keys()]
+        data = list(sales_data.values())
+        
+        return render(request, 'manager_app/analytics_for_admin.html', {
+            'labels': labels,
+            'data': data,
+    })
+    
     # orders = Orders.objects.all()
 
     # fig = px.line(

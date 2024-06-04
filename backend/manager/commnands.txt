@@ -2,6 +2,8 @@ py manage.py runserver
 pipenv run py manage.py makemigrations
 pipenv run py manage.py migrate
 
+python manage.py test manager_app
+
 pipenv run py echo_bot.py
 
 pipenv run py manage.py runserver

@@ -2,7 +2,10 @@ from django.shortcuts import render, redirect
 from .forms import LoginForm
 from manager_app.models import Users
 from django.contrib import messages
+from django.core.mail import send_mail
 # from django.contrib.auth import login as auth_login, logout as auth_logout
+
+app_name="manager_login"
 
 def login(request):
     if request.method == 'POST':
@@ -46,7 +49,7 @@ def register_view(request):
         if email:
             subject = 'Умови співпраці та реєстрація'
             message = 'Дякуємо за ваш інтерес! Ми надішлемо вам умови співпраці та посилання на реєстрацію протягом дня.'
-            from_email = 'your-email@example.com'  # Замість цього поставте свою електронну адресу
+            from_email = 'martamykhailyna608@gmail.com'  
             recipient_list = [email]
 
             try:

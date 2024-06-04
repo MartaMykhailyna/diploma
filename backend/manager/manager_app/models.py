@@ -3,6 +3,8 @@ from enum import Enum
 from datetime import datetime, timedelta
 from django.db.models import Sum
 from django.utils import timezone
+import calendar
+
 # from django.contrib.postgres.fields import ArrayField
 
 class Order_status(Enum):
@@ -33,7 +35,6 @@ class Shoes(models.Model):
     
     class Meta:
         db_table = 'shoes'
-        managed = False
 
 # class ShoesImages(models.Model):
 #     item = models.ForeignKey(Shoes, related_name='images', on_delete=models.CASCADE)
@@ -106,6 +107,49 @@ class Orders(models.Model):
 
         return total_sum_for_current_month or 0  # Return 0 if no orders found for the current month       
 
+    @classmethod
+    def calculate_total_sum_for_previous_month(cls):
+        # Get the previous month and year
+        first_day_of_current_month = timezone.now().replace(day=1)
+        last_day_of_previous_month = first_day_of_current_month - timedelta(days=1)
+        previous_month = last_day_of_previous_month.month
+        previous_year = last_day_of_previous_month.year
+
+        # Filter orders for the previous month
+        orders_for_previous_month = cls.objects.filter(
+            o_date_created__year=previous_year,
+            o_date_created__month=previous_month
+        )
+
+        # Calculate the total sum for the previous month
+        total_sum_for_previous_month = orders_for_previous_month.aggregate(total_sum=Sum('o_sum'))['total_sum']
+
+        return total_sum_for_previous_month or 0  # Return 0 if no orders found for the previous month
+
+    @classmethod
+    def calculate_percentage_drop(cls):
+        current_month_sum = cls.calculate_total_sum_for_current_month()
+        previous_month_sum = cls.calculate_total_sum_for_previous_month()
+
+        if previous_month_sum == 0:
+            return 0  # Якщо минулого місяця не було продажів, повертаємо 0
+
+        drop_percentage = ((previous_month_sum - current_month_sum) / previous_month_sum) * 100
+        return drop_percentage
+    
+    @classmethod
+    def get_sales_data(cls):
+        sales_data = cls.objects.filter(
+            o_date_created__year=timezone.now().year
+        ).values('o_date_created__month').annotate(total_sales=Sum('o_sum')).order_by('o_date_created__month')
+
+        # Перетворення даних у формат для графіка
+        sales_by_month = {month: 0 for month in range(1, 13)}
+        for data in sales_data:
+            sales_by_month[data['o_date_created__month']] = data['total_sales']
+        
+        return sales_by_month
+    
 class Reservations(models.Model):
     id_reservation = models.AutoField(primary_key=True)
     r_shoes = models.ForeignKey(Shoes, on_delete=models.CASCADE, db_column='r_shoes')

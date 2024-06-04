@@ -257,6 +257,31 @@ h1 span{
 }
 
 /* /section new arrivals */
+/* section about us*/
+.about-us-container{
+    height: 800px;
+}
+.about-us-artwork{
+    margin: 20px auto;
+}
+.about-us-text{
+}
+.about-us-text p{
+    margin: 20px 0;
+    font-size: 18px; 
+}
+.about-us-text p:nth-child(1){
+    font-weight: 900;
+}
+.about-us-text p:nth-child(2){
+    text-align: justify;
+}
+.about-us-text__our-princples{
+    text-align: justify;
+}
+/* /section about us */
+
+
 .contact-us-container {
     background-color: #E5C643;
     margin: 0 -20px;

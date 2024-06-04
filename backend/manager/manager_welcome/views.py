@@ -23,6 +23,6 @@ def send_email(request):
         )
         
         messages.success(request, 'Електронна пошта надіслана успішно.')
-        return redirect('welcome-page')
+        return redirect('manager_welcome:welcome-page')
     else:
         return render(request, 'manager_welcome/index.html')

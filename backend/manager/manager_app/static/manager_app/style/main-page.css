@@ -263,6 +263,8 @@ h1 span{
 }
 .about-us-artwork{
     margin: 20px auto;
+    
+    max-width: 650px;
 }
 .about-us-text{
 }

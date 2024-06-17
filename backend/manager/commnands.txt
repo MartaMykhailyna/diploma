@@ -1,6 +1,11 @@
 py manage.py runserver
 pipenv run py manage.py makemigrations
 pipenv run py manage.py migrate
+\
+python3 manage.py makemigrations
+python3 manage.py migrate
+python3 manage.py runserver
+
 
 python manage.py test manager_app
 

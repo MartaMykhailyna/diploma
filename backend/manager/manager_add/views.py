@@ -35,7 +35,7 @@ def add_item(request):
 
 def add_order(request):
     shoes_list = Shoes.objects.all()
-    user_list = Users.objects.all()  # Отримуємо список користувачів
+    user_list = User.objects.all()  # Отримуємо список користувачів
     order_status = [(status.value, status.name) for status in Order_status]
 
     if request.method == 'POST':
@@ -48,7 +48,7 @@ def add_order(request):
         o_count = int(request.POST.get('o_count', 0))
 
         shoes = get_object_or_404(Shoes, id_shoes=o_shoes_id)
-        user = get_object_or_404(Users, id_user=o_user_id)
+        user = get_object_or_404(User, id_user=o_user_id)
 
         if shoes.sh_count > 0:
             if o_count <= shoes.sh_count:
@@ -85,7 +85,7 @@ def add_order(request):
 
 def add_reservation(request):
     shoes_list = Shoes.objects.all()
-    user_list = Users.objects.all()  # Отримуємо список користувачів
+    user_list = User.objects.all()  # Отримуємо список користувачів
 
     if request.method == 'POST':
         r_shoes_id = request.POST.get('r_shoes')
@@ -99,8 +99,8 @@ def add_reservation(request):
             return render(request, 'manager_add/reservations-add.html', {'shoes_list': shoes_list, 'user_list': user_list, 'error_message': error_message, 'form_data': request.POST})
         
         try:
-            user = Users.objects.get(id_user=r_user_id)
-        except Users.DoesNotExist:
+            user = User.objects.get(id_user=r_user_id)
+        except User.DoesNotExist:
             error_message = "Користувач з вказаним ідентифікатором не існує"
             return render(request, 'manager_add/reservations-add.html', {'shoes_list': shoes_list, 'user_list': user_list, 'error_message': error_message, 'form_data': request.POST})
 

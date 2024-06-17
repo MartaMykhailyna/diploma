@@ -4,7 +4,7 @@ from datetime import datetime, timedelta
 from django.db.models import Sum
 from django.utils import timezone
 import calendar
-
+from manager_login.models import User
 # from django.contrib.postgres.fields import ArrayField
 
 class Order_status(Enum):
@@ -45,18 +45,20 @@ class Shoes(models.Model):
 #     def __str__(self):
 #         return self.item.sh_name
     
-class Users(models.Model):
-    id_user = models.IntegerField(primary_key=True)
-    u_username = models.CharField(max_length=255)
-    u_name = models.CharField(max_length=255)
-    u_surname = models.CharField(max_length=255)
-    u_email = models.CharField(max_length=255, blank=True, null=True)
-    u_phone = models.CharField(max_length=13)
-    u_status = models.BooleanField(default=False)
-    u_role = models.CharField(max_length=45,default=User_role.user.name, choices=[(user_role.value, user_role.name) for user_role in User_role])
+# class Users(models.Model):
+#     id_user = models.IntegerField(primary_key=True)
+#     u_username = models.CharField(max_length=255)
+#     u_name = models.CharField(max_length=255)
+#     u_surname = models.CharField(max_length=255)
+#     u_email = models.CharField(max_length=255, blank=True, null=True)
+#     u_phone = models.CharField(max_length=13)
+#     u_status = models.BooleanField(default=False)
+#     u_role = models.CharField(max_length=45,default=User_role.user.name, choices=[(user_role.value, user_role.name) for user_role in User_role])
     
-    class Meta:
-        db_table = 'users'
+#     class Meta:
+#         db_table = 'users'
+
+
     
 class Orders(models.Model):
     id_order = models.AutoField(primary_key=True)
@@ -67,7 +69,7 @@ class Orders(models.Model):
     o_address = models.CharField(max_length=100, null=False, default='Address')
     o_comment=models.CharField(max_length=100, null=True)
     o_status = models.CharField(max_length=45, default=Order_status.accepted.value, choices=[(status.value, status.name) for status in Order_status])    
-    o_user = models.ForeignKey(Users, on_delete=models.CASCADE, null = True, db_column='o_user')
+    o_user = models.ForeignKey(User, on_delete=models.CASCADE, null = True, db_column='o_user')
     o_date_created = models.DateTimeField(default=timezone.now)
     class Meta:
         db_table = 'orders'
@@ -156,7 +158,7 @@ class Reservations(models.Model):
     r_count = models.IntegerField(null=False, default=1)
     r_start_date = models.DateTimeField(default=timezone.now)
     r_end_date = models.DateTimeField(default=timezone.now() + timedelta(hours=3))
-    r_user = models.ForeignKey(Users, on_delete=models.CASCADE, db_column='r_user')
+    r_user = models.ForeignKey(User, on_delete=models.CASCADE, db_column='r_user')
 
     class Meta:
         db_table = 'reservations'

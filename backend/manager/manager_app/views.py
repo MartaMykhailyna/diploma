@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import JsonResponse
 from manager_app.models import *
+from manager_login.models import *
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.contrib import messages
@@ -34,11 +35,11 @@ def items_delete(request, shoes_id):
 
 def users(request):
     # return render(request, 'users.html')
-    data = Users.objects.all()
+    data = User.objects.all()
     return render(request, 'manager_app/users.html', {'data': data})
 
 def users_toggle_status(request, user_id):
-    user = get_object_or_404(Users, id_user=user_id)
+    user = get_object_or_404(User, id_user=user_id)
     if user.u_status != True:
        user.u_status = True
     else:
@@ -47,7 +48,7 @@ def users_toggle_status(request, user_id):
     return redirect('manager_app:users')
 
 def users_delete(request, user_id):
-    user = get_object_or_404(Users, id_user = user_id)
+    user = get_object_or_404(User, id_user = user_id)
 
     if request.method == 'POST':
         user.delete()

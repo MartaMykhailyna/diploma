@@ -3,13 +3,22 @@ from telebot import types
 import os
 import django
 from django.conf import settings
-
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'manager.settings')
-django.setup()
-from manager_app.models import *
+from manager import settings
 from datetime import datetime, timedelta
+import sys
+from manager_app.models import *
+from manager_login.models import *
 
-bot = telebot.TeleBot("7016034202:AAE_2JBKktW-Sx_QLHenOrtBQY7s8F5ZUL4", parse_mode=None)
+
+sys.dont_write_bytecode = True
+
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "manager.settings")
+os.environ["DJANGO_ALLOW_ASYNC_UNSAFE"] = "true"
+
+django.setup()
+
+
+# bot = telebot.TeleBot("7016034202:AAE_2JBKktW-Sx_QLHenOrtBQY7s8F5ZUL4", parse_mode=None)
 
 @bot.message_handler(commands=['start', 'help'])
 def send_welcome(message):
@@ -21,7 +30,7 @@ def register_user(message):
     sender_username = message.from_user.username
 
     # Перевіряємо, чи є користувач в базі даних
-    user, created = Users.objects.get_or_create(id_user=sender_chat_id, defaults={'u_username': sender_username})
+    user, created = User.objects.get_or_create(id_user=sender_chat_id, defaults={'u_username': sender_username})
 
     if created:
         # Якщо користувач ще не зареєстрований, просимо його ввести інші дані
@@ -64,7 +73,7 @@ def add_order(message):
     sender_chat_id = message.chat.id
     
     try:
-        user = Users.objects.get(id_user=sender_chat_id)
+        user = User.objects.get(id_user=sender_chat_id)
         # Перевіряємо, чи користувач вже зареєстрований
         if user:
             if user.u_status:
@@ -73,7 +82,7 @@ def add_order(message):
                 bot.register_next_step_handler(message, process_shoes_id)
             else:
                 bot.send_message(message.chat.id, "Вибачте, ваш акаунт не активний. Зверніться до адміністратора.")
-    except Users.DoesNotExist:
+    except User.DoesNotExist:
         # Якщо користувача не знайдено, просимо його спочатку зареєструватися
         bot.send_message(message.chat.id, "Ви ще не зареєстровані. Скористайтеся командою /register.")
 
@@ -97,13 +106,13 @@ def process_shoes_id(message):
         bot.send_message(message.chat.id, "Некоректне значення ID товару. Введіть ціле число.")
 def process_order_confirmation(message, shoes):
     try:
-        user = Users.objects.get(id_user=message.chat.id)
+        user = User.objects.get(id_user=message.chat.id)
         if message.text.lower() == "так":
             bot.send_message(message.chat.id, "Введіть кількість товару:")
             bot.register_next_step_handler(message, o_process_quantity, shoes, user)
         else:
             bot.send_message(message.chat.id, "Добре, якщо вам знадобиться допомога з замовленням, не соромтесь звертатися!")
-    except Users.DoesNotExist:
+    except User.DoesNotExist:
         bot.send_message(message.chat.id, "Вибачте, але ваш обліковий запис не знайдено. Зареєструйтесь за допомогою команди /register.")
 
 def o_process_quantity(message, shoes, user):
@@ -157,7 +166,7 @@ def add_reservation(message):
     sender_chat_id = message.chat.id
     
     try:
-        user = Users.objects.get(id_user=sender_chat_id)
+        user = User.objects.get(id_user=sender_chat_id)
         # Перевіряємо, чи користувач вже зареєстрований
         if user:
             if user.u_status:
@@ -166,7 +175,7 @@ def add_reservation(message):
                 bot.register_next_step_handler(message, process_reserv_shoes_id)
             else:
                 bot.send_message(message.chat.id, "Вибачте, ваш акаунт не активний. Зверніться до адміністратора.")
-    except Users.DoesNotExist:
+    except User.DoesNotExist:
         # Якщо користувача не знайдено, просимо його спочатку зареєструватися
         bot.send_message(message.chat.id, "Ви ще не зареєстровані. Скористайтеся командою /register.")
 
@@ -191,7 +200,7 @@ def process_reserv_shoes_id(message):
 
 def process_reservation_confirmation(message, shoes):
     user_chat_id = message.chat.id
-    user = Users.objects.get(id_user=user_chat_id)
+    user = User.objects.get(id_user=user_chat_id)
     bot.send_message(message.chat.id, "Введіть кількість товару:")
     # Замість bot.register_next_step_handler(message, process_quantity, shoes, user)
     # Ми реєструємо наступний крок з новою функцією, яка очікує кількість товару
@@ -236,4 +245,28 @@ def send_user_info(message):
     
     bot.send_message(chat_id, user_details)
 
-bot.infinity_polling()
+
+def main():
+    """Run the bot."""
+    application = Application.builder().token(settings.TELEGRAM_BOT_TOKEN).build()
+
+    conv_handler = ConversationHandler(
+        entry_points=[
+            CommandHandler("start", start),
+            CommandHandler('report', report)],
+        states={
+            START_STATE: [
+                CallbackQueryHandler(plus, pattern="^" + str(PLUS) + "$"),
+                CallbackQueryHandler(minus, pattern="^" + str(MINUS) + "$"),
+            ],
+            END_STATE: [
+                CallbackQueryHandler(end),
+            ],
+        },
+        fallbacks=[CommandHandler("start", start)],
+    )
+
+    application.add_handler(conv_handler)
+
+    application.run_polling()
+# bot.infinity_polling()

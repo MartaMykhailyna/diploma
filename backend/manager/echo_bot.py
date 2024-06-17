@@ -66,8 +66,19 @@ def process_email(message, user):
     if email:
         user.u_email = email
     user.save()
-    bot.send_message(message.chat.id, "Дякуємо за введення інформації. Ви успішно зареєстровані!")
- 
+    bot.send_message(message.chat.id, "Тепер придумайте пароль для вашого акаунту (мінімум 8 символів):")
+    bot.register_next_step_handler(message, process_password, user) 
+    
+def process_password(message, user):
+    password = message.text
+    if len(password) >= 8:
+        user.u_password = password
+        user.save()
+        bot.send_message(message.chat.id, "Дякуємо за введення інформації. Ви успішно зареєстровані!")
+    else:
+        bot.send_message(message.chat.id, "Пароль має бути не менше 8 символів. Будь ласка, введіть пароль:")
+        bot.register_next_step_handler(message, process_password, user)
+
 @bot.message_handler(commands=['create_order'])
 def add_order(message):
     sender_chat_id = message.chat.id

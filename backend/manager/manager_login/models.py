@@ -15,6 +15,6 @@ class User(AbstractUser):
     u_phone = models.CharField(max_length=13)
     u_status = models.BooleanField(default=False)
     u_role = models.CharField(max_length=45,default=User_role.user.name, choices=[(user_role.value, user_role.name) for user_role in User_role])
-    
+    u_password = models.CharField(max_length=20, null=False, blank=True)
     class Meta:
         db_table = 'users'

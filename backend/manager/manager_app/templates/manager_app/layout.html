@@ -72,6 +72,7 @@
         </div>
         <div class="avatar-container-wrapper">
           <div class="avatar-container">
+          {% if user.is_authenticated %}
             <img
               src="{% static 'manager_app/img/icon-admin.jpg'%}"
               alt="avatar"
@@ -80,7 +81,7 @@
           <div class="circle-online"></div>
           <div class="name-container">
             <p class="username">
-              theadmin<br /><span class="name"> Адмін</span>
+              {{ user.username }}<br /><span class="name"> Адмін</span>
             </p>
           </div>
         </div>

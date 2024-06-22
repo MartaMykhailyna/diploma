@@ -71,19 +71,20 @@
           </div>
         </div>
         <div class="avatar-container-wrapper">
-          <div class="avatar-container">
-          {% if user.is_authenticated %}
-            <img
-              src="{% static 'manager_app/img/icon-admin.jpg'%}"
-              alt="avatar"
-            />
-          </div>
-          <div class="circle-online"></div>
-          <div class="name-container">
-            <p class="username">
-              {{ user.username }}<br /><span class="name"> Адмін</span>
-            </p>
-          </div>
+            {% if user.is_authenticated %}
+            <div class="avatar-container">
+              <img
+                src="{% static 'manager_app/img/icon-admin.jpg'%}"
+                alt="avatar"
+              />
+            </div>
+            <div class="circle-online"></div>
+            <div class="name-container">
+              <p class="username">
+                {{ user.username }}<br /><span class="name">{{ user.u_role }}</span>
+              </p>
+            </div>
+            {% endif %}
         </div>
         <div class="menu-container">
           <nav>
@@ -142,14 +143,17 @@
               </button>
             </div>
             <div class="menu-item">
-              <button>
-                <div class="menu-icons">
+              <form action="{% url 'logout' %}" method="post">
+              {% csrf_token %}
+                <button type="submit">
+                  <div class="menu-icons">
                   <i
                     class="fa-solid fa-arrow-right-from-bracket fa-flip-horizontal"
                   ></i>
                 </div>
-                <p class="menu-item-text">вийти</p>
-              </button>
+                <p class="menu-item-text">Вийти</p>
+                </button>
+              </form>
             </div>
           </div>
         </div>

@@ -19,7 +19,7 @@
                         <label for="r_user">Користувач:</label>
                         <select id="r_user" name="r_user" required>
                             {% for user in user_list %}
-                                <option value="{{ user.id_user }}" {% if form_data.r_user == user.id_user %}selected{% endif %}>{{ user.u_username }}</option>
+                                <option value="{{ user.id_user }}" {% if form_data.r_user == user.id_user %}selected{% endif %}>{{ user.o_user }}{{ user.username }}</option>
                             {% endfor %}
                         </select>
                     </div>

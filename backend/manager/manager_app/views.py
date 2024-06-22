@@ -7,6 +7,7 @@ from django.dispatch import receiver
 from django.contrib import messages
 import plotly.express as px
 from datetime import datetime,timedelta
+from django.contrib.auth.decorators import login_required
 
 def items(request):
     data = Shoes.objects.all()
@@ -35,20 +36,20 @@ def items_delete(request, shoes_id):
 
 def users(request):
     # return render(request, 'users.html')
-    data = User.objects.all()
+    data = CustomUser.objects.all()
     return render(request, 'manager_app/users.html', {'data': data})
 
 def users_toggle_status(request, user_id):
-    user = get_object_or_404(User, id_user=user_id)
-    if user.u_status != True:
-       user.u_status = True
+    user = get_object_or_404(CustomUser, id_user=user_id)
+    if user.is_active != True:
+       user.is_active = True
     else:
         redirect('manager_app:users')
     user.save()
     return redirect('manager_app:users')
 
 def users_delete(request, user_id):
-    user = get_object_or_404(User, id_user = user_id)
+    user = get_object_or_404(CustomUser, id_user = user_id)
 
     if request.method == 'POST':
         user.delete()
@@ -57,11 +58,17 @@ def users_delete(request, user_id):
     return redirect('manager_app:users')
 
     
+@login_required
 def orders(request):
-    # return render(request, 'orders.html')
-    data = Orders.objects.all()
+    user = request.user
+    if user.u_role == 'user':
+        data = Orders.objects.filter(o_user=user)
+    else:
+        data = Orders.objects.all()
+
     for item in data:
         item.order_sum = item.o_count * item.o_shoes.sh_price
+
     order_status = [(status.value, status.name) for status in Order_status]
     return render(request, 'manager_app/orders.html', {'data': data, 'order_status': order_status})
 

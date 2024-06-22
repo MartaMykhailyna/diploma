@@ -1,7 +1,7 @@
 # manager_app/tests.py
 from django.test import TestCase, Client
 from django.urls import reverse
-from manager_app.models import Users
+# from manager_app.models import Users
 
 class UsersViewsTest(TestCase):
 

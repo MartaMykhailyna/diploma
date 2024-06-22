@@ -9,9 +9,10 @@ urlpatterns = [
     path('app/', include('manager_app.urls')),
     path('add/', include('manager_add.urls')),
     path('edit/', include('manager_edit.urls')),
-    path('authorization/', include('manager_login.urls')),
+    # path('authorization/', include('manager_login.urls')),
     path('currency/', include('currency_exchange.urls')),
-    path('accounts/', include('django.contrib.auth.urls')),
+    path('login/', include('manager_login.urls')),
+    path('', include('django.contrib.auth.urls')),
 ]
 
 urlpatterns +=static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

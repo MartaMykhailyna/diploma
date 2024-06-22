@@ -2,6 +2,7 @@
 """Django's command-line utility for administrative tasks."""
 import os
 import sys
+from concurrent.futures import ThreadPoolExecutor
 
 
 def main():
@@ -17,6 +18,16 @@ def main():
         ) from exc
     execute_from_command_line(sys.argv)
 
+    def run_django():
+        execute_from_command_line(sys.argv)
+
+    def run_telegram_bot():
+        import echo_bot
+        echo_bot.main()
+
+    with ThreadPoolExecutor(max_workers=2) as executor:
+        executor.submit(run_django)
+        executor.submit(run_telegram_bot)
 
 if __name__ == '__main__':
     main()

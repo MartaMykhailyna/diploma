@@ -1,9 +1,11 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from manager_app.models import *
+from manager_login.models import CustomUser
 from django.contrib import messages
 from datetime import datetime,timedelta
+from django.contrib.auth.decorators import login_required
 
-
+@login_required
 def add_item(request):
 
     if request.method == 'POST':
@@ -32,10 +34,10 @@ def add_item(request):
     else:
         return render(request, 'manager_add/items-add.html')
     
-
+@login_required
 def add_order(request):
     shoes_list = Shoes.objects.all()
-    user_list = User.objects.all()  # Отримуємо список користувачів
+    user_list = CustomUser.objects.all()  # Отримуємо список користувачів
     order_status = [(status.value, status.name) for status in Order_status]
 
     if request.method == 'POST':
@@ -48,7 +50,7 @@ def add_order(request):
         o_count = int(request.POST.get('o_count', 0))
 
         shoes = get_object_or_404(Shoes, id_shoes=o_shoes_id)
-        user = get_object_or_404(User, id_user=o_user_id)
+        user = get_object_or_404(CustomUser, id_user=o_user_id)
 
         if shoes.sh_count > 0:
             if o_count <= shoes.sh_count:
@@ -82,10 +84,10 @@ def add_order(request):
     else:
         return render(request, 'manager_add/orders-add.html', {'shoes_list': shoes_list, 'user_list': user_list, 'order_status': order_status})
 
-
+@login_required
 def add_reservation(request):
     shoes_list = Shoes.objects.all()
-    user_list = User.objects.all()  # Отримуємо список користувачів
+    user_list = CustomUser.objects.all()  # Отримуємо список користувачів
 
     if request.method == 'POST':
         r_shoes_id = request.POST.get('r_shoes')
@@ -99,8 +101,8 @@ def add_reservation(request):
             return render(request, 'manager_add/reservations-add.html', {'shoes_list': shoes_list, 'user_list': user_list, 'error_message': error_message, 'form_data': request.POST})
         
         try:
-            user = User.objects.get(id_user=r_user_id)
-        except User.DoesNotExist:
+            user = CustomUser.objects.get(id_user=r_user_id)
+        except CustomUser.DoesNotExist:
             error_message = "Користувач з вказаним ідентифікатором не існує"
             return render(request, 'manager_add/reservations-add.html', {'shoes_list': shoes_list, 'user_list': user_list, 'error_message': error_message, 'form_data': request.POST})
 

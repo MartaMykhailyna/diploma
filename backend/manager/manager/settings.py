@@ -4,8 +4,8 @@ import os
 import environ
 
 env = environ.Env(
-  # set casting, default value
-  DEBUG=(bool, False)
+#   # set casting, default value
+#   DEBUG=(bool, False)
 )
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -22,9 +22,6 @@ SECRET_KEY = env('SECRET_KEY')
 DEBUG = env("DEBUG")
 
 ALLOWED_HOSTS = []
-
-
-AUTH_USER_MODEL = 'manager_login.User'
 
 # Application definition
 
@@ -63,7 +60,7 @@ ROOT_URLCONF = 'manager.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'manager_app/templates/')],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -111,7 +108,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-LOGIN_REDIRECT_URL = "/manager_app/analytics.html"
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
@@ -144,7 +140,6 @@ STATICFILES_DIRS = [
 MEDIA_ROOT = os.path.join(BASE_DIR,"media")
 MEDIA_URL = '/media/'
 
-
 # Email
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST_PASSWORD = 'aymk ckym llew kgyw'
@@ -153,3 +148,7 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'martamykhailyna608@gmail.com'
+
+AUTH_USER_MODEL = "manager_login.CustomUser"
+LOGIN_REDIRECT_URL = "manager_app:items"
+LOGOUT_REDIRECT_URL = "manager_welcome:welcome-page"

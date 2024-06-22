@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from manager_app.models import *
+from manager_login.models import *
 from django.contrib import messages
 
 
@@ -27,15 +28,15 @@ def update_item(request, shoes_id):
 
 
 def update_user(request, user_id):
-    user = get_object_or_404(Users, id_user = user_id)
+    user = get_object_or_404(CustomUser, id_user = user_id)
     
     if request.method == 'POST':
-        user.u_username = request.POST.get('u_username')
-        user.u_name = request.POST.get('u_name')
-        user.u_surname = request.POST.get('u_surname')
-        user.u_email = request.POST.get('u_email')
+        user.username = request.POST.get('username')
+        user.first_name = request.POST.get('first_name')
+        user.last_name = request.POST.get('last_name')
+        user.email = request.POST.get('email')
         user.u_phone = request.POST.get('u_phone')
-        user.u_status = request.POST.get('u_status') == True
+        user.is_active = request.POST.get('is_active') == True
         user.u_role = request.POST.get('u_role')
         user.save()
         return redirect('manager_app:users')

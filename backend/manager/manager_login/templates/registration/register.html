@@ -3,7 +3,7 @@
   
 {% block content %}
     <div class="login-form-container">
-        <form class="login-form" action="{% url 'register' %}" method="post">
+        <form class="login-form" action="{% url 'manager_login:send-email-for-register' %}" method="post">
             {% csrf_token %}
             <h1>Send Email For Registration</h1>
           <input name="email" style="margin-bottom: 20px;" type="email" placeholder="Email" >

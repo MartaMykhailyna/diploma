@@ -64,7 +64,7 @@
         data-address="{{ item.o_address }}"
         data-comment="{{item.o_comment}}"
         data-status="{{ item.o_status }}"
-        data-username="{{ item.o_user.u_username }}"
+        data-username="{{ item.o_user.username }}"
         onclick="openModal(event); return false;"
         >{{ item.o_shoes.sh_name }}
       </a>
@@ -175,7 +175,7 @@
       <p>Отримувач: {{ item.o_recipient }}</p>
       <p>Адреса: {{ item.o_address }}</p>
       <p>Коментар: {{ item.o_comment }}</p>
-      <p>Користувач: {{ item.o_user.u_username }}</p>
+      <p>Користувач: {{ item.o_user.username }}</p>
     </div>
   </div>
 </div>

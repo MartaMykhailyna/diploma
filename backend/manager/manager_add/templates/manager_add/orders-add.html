@@ -35,13 +35,21 @@
                 {% endfor %}
             </select>
         </div>
-        <div class="input-and-label-container">
-            <label for="o_user">Користувач:</label>
-            <select id="o_user" name="o_user" required>
-                {% for user in user_list %}
-                    <option value="{{ user.id_user }}" {% if form_data.o_user == user.id_user %}selected{% endif %}>{{ user.u_username }}</option>
-                {% endfor %}
-            </select>        </div>
+    <div class="input-and-label-container">
+        <label for="o_user">Користувач:</label>
+        <select id="o_user" name="o_user" required>
+            {% if user.is_authenticated %}
+                {% if user.u_role == 'user' %}
+                    <option value="{{ user.id_user }}" selected>{{ user.username }}</option>
+                {% elif user.u_role == 'administrator' %}
+                    {% for user in user_list %}
+                        <option value="{{ user.id_user }}" {% if form_data.o_user == user.id_user %}selected{% endif %}>{{ user.username }}</option>
+                    {% endfor %}
+                {% endif %}
+            {% endif %}
+        </select>
+    </div>
+
         <button type="submit" class="btn">Додати замовлення</button>
     </form>
 

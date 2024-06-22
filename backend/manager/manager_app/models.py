@@ -4,7 +4,8 @@ from datetime import datetime, timedelta
 from django.db.models import Sum
 from django.utils import timezone
 import calendar
-from manager_login.models import User
+from django.conf import settings
+from manager_login.models import CustomUser
 # from django.contrib.postgres.fields import ArrayField
 
 class Order_status(Enum):
@@ -69,7 +70,7 @@ class Orders(models.Model):
     o_address = models.CharField(max_length=100, null=False, default='Address')
     o_comment=models.CharField(max_length=100, null=True)
     o_status = models.CharField(max_length=45, default=Order_status.accepted.value, choices=[(status.value, status.name) for status in Order_status])    
-    o_user = models.ForeignKey(User, on_delete=models.CASCADE, null = True, db_column='o_user')
+    o_user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null = True, db_column='o_user')
     o_date_created = models.DateTimeField(default=timezone.now)
     class Meta:
         db_table = 'orders'
@@ -158,7 +159,7 @@ class Reservations(models.Model):
     r_count = models.IntegerField(null=False, default=1)
     r_start_date = models.DateTimeField(default=timezone.now)
     r_end_date = models.DateTimeField(default=timezone.now() + timedelta(hours=3))
-    r_user = models.ForeignKey(User, on_delete=models.CASCADE, db_column='r_user')
+    r_user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, db_column='r_user')
 
     class Meta:
         db_table = 'reservations'

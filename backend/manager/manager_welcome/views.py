@@ -4,8 +4,6 @@ from django.conf import settings
 from django.contrib import messages
 
 
-
-
 def welcome_page(request):
     return render(request, 'manager_welcome/index.html')
 

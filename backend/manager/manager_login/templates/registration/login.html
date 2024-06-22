@@ -1,0 +1,15 @@
+{% extends "manager_app/layout.html" %}
+{% block wrapper %}
+  
+{% block content %}
+    <div class="login-form-container">
+        <form class="login-form" method="post"">
+            {% csrf_token %}
+            <h1>Login</h1>
+            {{ form.as_p }}
+            <button type="submit" value="Login"></button>
+            <a style="margin: 20px auto;" href="{% url 'manager_login:send-email-for-register' %}"> Register</a>
+        </form>
+    </div>
+{% endblock content %}
+{% endblock wrapper %}
